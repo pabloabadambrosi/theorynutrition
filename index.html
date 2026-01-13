@@ -23,10 +23,12 @@
 
     <!-- Navigation -->
     <nav class="navbar">
+        <div class="scroll-progress" id="scroll-bar"></div>
         <div class="container nav-container">
             <a href="#" class="logo">Theory Nutrition</a>
             <ul class="nav-links">
                 <li><a href="#products">Productos</a></li>
+                <li><a href="#calculator" class="btn-nav">Calculadora</a></li>
                 <li><a href="#science">Por qué Theory</a></li>
                 <li><a href="#recipes">Recetas</a></li>
                 <li><a href="#faq">FAQs</a></li>
@@ -54,6 +56,35 @@
             </div>
         </div>
     </section>
+
+    <!-- Benefits Badges -->
+    <section class="benefits-badges">
+        <div class="container">
+            <div class="badges-grid">
+                <div class="badge-item">
+                    <div class="badge-icon">🌱</div>
+                    <span>100% Vegano</span>
+                </div>
+                <div class="badge-item">
+                    <div class="badge-icon">🚫</div>
+                    <span>Sin Gluten</span>
+                </div>
+                <div class="badge-item">
+                    <div class="badge-icon">✓</div>
+                    <span>Non-GMO</span>
+                </div>
+                <div class="badge-item">
+                    <div class="badge-icon">🇪🇨</div>
+                    <span>Hecho en Ecuador</span>
+                </div>
+                <div class="badge-item">
+                    <div class="badge-icon">💪</div>
+                    <span>27g Proteína</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
 
     <!-- Product Showcase -->
     <section id="products" class="products-section">
@@ -101,7 +132,102 @@
         </div>
     </section>
 
-    <!-- Science Section (Tabs) -->
+    <!-- Testimonials Section -->
+    <section class="testimonials-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Lo que dicen nuestros atletas</h2>
+                <p>Experiencias reales de quienes confían en Theory</p>
+            </div>
+
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="quote-icon">"</div>
+                    <p class="testimonial-text">La proteína más limpia que he probado. Se nota la diferencia en la
+                        digestión y los resultados. Sin rellenos, sin trucos.</p>
+                    <div class="testimonial-author">
+                        <div class="author-info">
+                            <h4>María González</h4>
+                            <span>Crossfit Athlete</span>
+                        </div>
+                        <div class="stars">★★★★★</div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="quote-icon">"</div>
+                    <p class="testimonial-text">Como vegano, encontrar una proteína de calidad era difícil. Theory
+                        superó mis expectativas. 27g de proteína pura, sin compromisos.</p>
+                    <div class="testimonial-author">
+                        <div class="author-info">
+                            <h4>Carlos Mendoza</h4>
+                            <span>Bodybuilder</span>
+                        </div>
+                        <div class="stars">★★★★★</div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="quote-icon">"</div>
+                    <p class="testimonial-text">Transparencia total en los ingredientes. Finalmente una marca que no te
+                        oculta nada. La uso todos los días post-entrenamiento.</p>
+                    <div class="testimonial-author">
+                        <div class="author-info">
+                            <h4>Andrea Ruiz</h4>
+                            <span>Runner & Nutritionist</span>
+                        </div>
+                        <div class="stars">★★★★★</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Protein Calculator Section 2026 -->
+    <section id="calculator" class="calculator-section fade-in">
+        <div class="container">
+            <div class="calculator-wrapper">
+                <div class="calculator-content">
+                    <h2>Calculadora de Proteína <span class="text-highlight">2026</span></h2>
+                    <p>Calcula tu requerimiento diario basado en la nueva pirámide nutricional enfocada en salud
+                        metabólica y muscular.</p>
+
+                    <div class="calc-form">
+                        <div class="input-row">
+                            <div class="calc-group">
+                                <label for="calc-weight">Peso Corporal</label>
+                                <div class="input-with-select">
+                                    <input type="number" id="calc-weight" value="70" min="1">
+                                    <select id="calc-unit" aria-label="Unidad de peso">
+                                        <option value="kg">kg</option>
+                                        <option value="lb">lb</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="calc-group">
+                                <label for="calc-activity">Nivel de Actividad</label>
+                                <select id="calc-activity" aria-label="Selecciona tu nivel de actividad">
+                                    <option value="0.8">Sedentario (Mantenimiento)</option>
+                                    <option value="1.2">Activo (Fitness General)</option>
+                                    <option value="1.6">Intenso (Entrenamiento Diario)</option>
+                                    <option value="2.2">Elite / Atleta (Máximo Rendimiento)</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="calc-result-box">
+                            <div class="result-label">Tu Requerimiento Diario:</div>
+                            <div class="result-value"><span id="protein-result">--</span>g</div>
+                            <div class="result-footer">de proteína pura al día</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <section id="science" class="science-tabs-section">
         <div class="container">
             <div class="section-header">
@@ -179,8 +305,7 @@
                         <div class="amino-card"><span>Arginina</span><strong>2.1g</strong></div>
                         <div class="amino-card"><span>BCAAs Totales</span><strong>5.3g</strong></div>
                     </div>
-                    <p class="amino-note" style="text-align: center; margin-top: 2rem; color: #6e7a9c;">*Valores por
-                        servicio de 30g.</p>
+                    <p class="amino-note">*Valores por servicio de 30g.</p>
                 </div>
             </div>
         </div>
@@ -189,20 +314,46 @@
     <!-- Vision / Founder Section -->
     <section id="vision" class="vision-section">
         <div class="container vision-grid">
-            <div class="vision-image">
-                <img src="product_unflavored.png" alt="Pureza Theory" class="floating">
+            <div class="vision-image fade-in">
+                <img src="original_pouch.png" alt="Envase Original Theory Nutrition" class="founder-img">
             </div>
-            <div class="vision-content">
-                <span class="recipe-tag">Nuestra Visión</span>
-                <h2>Por qué creamos Theory</h2>
-                <p>En un mercado saturado de productos con etiquetas confusas y fórmulas llenas de rellenos
-                    innecesarios, decidimos volver a lo básico. </p>
-                <p>Theory Nutrition nació de la necesidad de ofrecer una nutrición <strong>honesta</strong>. Creemos que
-                    no deberías pagar por gomas, espesantes o procesos químicos que tu cuerpo no necesita. Nuestro
-                    objetivo es simple: entregarte la proteína más pura y efectiva posible, sin secretos.</p>
+            <div class="vision-content fade-in delay-1">
+                <span class="recipe-tag">Nuestra Historia</span>
+                <h2>Nutrición Sin Secretos</h2>
+                <p>Theory Nutrition nació de una frustración compartida: un mercado saturado de suplementos con
+                    etiquetas "propietarias" y rellenos innecesarios. Creemos que tu cuerpo merece transparencia total.
+                </p>
+                <p>Nuestra misión es simple pero radical: entregar la proteína más limpia del mercado. Sin gomas, sin
+                    espesantes, sin excusas. Solo lo que necesitas para rendir al máximo.</p>
+                <div class="vision-quote">
+                    <blockquote>"La pureza no es un lujo, es la base de un rendimiento real."</blockquote>
+                </div>
             </div>
         </div>
     </section>
+
+    <!-- Showcase Gallery Section -->
+    <section class="showcase-section">
+        <div class="container">
+            <div class="showcase-grid">
+                <div class="showcase-item fade-in">
+                    <img src="showcase_powder.png" alt="Pureza en cada scoop">
+                    <div class="showcase-info">
+                        <h3>Transparencia Total</h3>
+                        <p>Sin gomas ni rellenos. Pureza absoluta.</p>
+                    </div>
+                </div>
+                <div class="showcase-item fade-in delay-1">
+                    <img src="showcase_workout.png" alt="Rendimiento Elite">
+                    <div class="showcase-info">
+                        <h3>Rendimiento Elite</h3>
+                        <p>Diseñada para atletas que no aceptan menos que lo mejor.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
 
     <!-- Recipes Section -->
     <section id="recipes" class="recipes-section">
@@ -290,33 +441,57 @@
             <div class="accordion">
                 <div class="accordion-item">
                     <div class="accordion-header">
-                        <h3>¿De qué está hecha exactamente la proteína?</h3>
+                        <h3>¿Hacen envíos a todo Ecuador?</h3>
                         <span class="icon">+</span>
                     </div>
                     <div class="accordion-content">
-                        <p>Sin Sabor: únicamente Aislado de Proteína de Soya. Vainilla: Aislado de Soya, sabor natural y
-                            sucralosa.</p>
+                        <p>Sí, realizamos envíos seguros a todas las provincias del Ecuador a través de Servientrega y
+                            cooperativas registradas. Tu pedido llega de 24 a 48 horas laborables.</p>
                     </div>
                 </div>
 
                 <div class="accordion-item">
                     <div class="accordion-header">
-                        <h3>¿Es una proteína completa?</h3>
+                        <h3>¿Cuáles son los métodos de pago?</h3>
                         <span class="icon">+</span>
                     </div>
                     <div class="accordion-content">
-                        <p>Sí. Contiene todos los aminoácidos esenciales necesarios para la síntesis muscular.</p>
+                        <p>Manejamos transferencia bancaria directa (Banco Pichincha, Produbanco, Guayaquil) y
+                            depósitos. Los datos detallados se proporcionan al confirmar tu orden por WhatsApp.</p>
                     </div>
                 </div>
 
                 <div class="accordion-item">
                     <div class="accordion-header">
-                        <h3>¿Por qué no usan gomas?</h3>
+                        <h3>¿Contiene azúcar o rellenos artificiales?</h3>
                         <span class="icon">+</span>
                     </div>
                     <div class="accordion-content">
-                        <p>Confiamos en la calidad de nuestro aislado premium que se disuelve perfectamente sin
-                            espesantes artificiales.</p>
+                        <p>No. En Theory eliminamos gomas, espesantes y azúcares añadidos. Nuestra prioridad es la
+                            pureza absoluta para garantizar una digestión ligera y máxima biodisponibilidad.</p>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <h3>¿Cómo se recomienda tomar la proteína Theory?</h3>
+                        <span class="icon">+</span>
+                    </div>
+                    <div class="accordion-content">
+                        <p>Mezcla un servicio (1 scoop de 30g) con 250ml de agua o tu bebida vegetal favorita. Es ideal
+                            para consumir después del entrenamiento o como snack proteico en cualquier momento del día.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <h3>¿Es apta para veganos y personas con alergias?</h3>
+                        <span class="icon">+</span>
+                    </div>
+                    <div class="accordion-content">
+                        <p>Sí, es 100% de origen vegetal (proteína aislada de soya premium). Es naturalmente libre de
+                            lácteos, gluten y colesterol, lo que la hace ideal para digestiones sensibles.</p>
                     </div>
                 </div>
             </div>
@@ -332,11 +507,26 @@
 
                 <div class="stockists">
                     <h3>Puntos de Venta</h3>
-                    <ul>
-                        <li>Iron Gym Fitness Center</li>
-                        <li>Natural Life Market</li>
-                        <li>CrossFit Zona 4</li>
-                    </ul>
+                    <div class="stockists-grid">
+                        <div class="stockist-card">
+                            <div class="stockist-logo">
+                                <img src="olimpo_logo.jpg" alt="Olimpo Fitness Ricaurte">
+                            </div>
+                            <div class="stockist-info">
+                                <h4>Olimpo 2.0</h4>
+                                <p>Crossfit • Gym • Bailo-funcional</p>
+                                <p class="stockist-location">Megatienda de Ricaurte, Cuenca</p>
+                                <a href="https://www.instagram.com/olimpo.fitness_ricaurte/" target="_blank"
+                                    rel="noopener noreferrer" class="stockist-link">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                        <path
+                                            d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+                                    </svg>
+                                    @olimpo.fitness_ricaurte
+                                </a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -386,16 +576,24 @@
         <div class="container footer-content">
             <div class="footer-logo">Theory Nutrition</div>
             <div class="footer-copy">
-                &copy; 2024 Theory Nutrition. Todos los derechos reservados.
+                &copy; 2026 Theory Nutrition. Cuenca - Ecuador. Todos los derechos reservados.
             </div>
             <div class="social-links">
-                <a href="#">Instagram</a>
-                <a href="https://wa.me/593987706360">WhatsApp</a>
+                <a href="https://wa.me/593987706360" target="_blank">WhatsApp</a>
             </div>
         </div>
     </footer>
 
-    <script src="script.js"></script>
+    <!-- Floating WhatsApp -->
+    <a href="https://wa.me/593987706360" class="whatsapp-float fade-in" target="_blank" rel="noopener noreferrer"
+        aria-label="Contactar por WhatsApp">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+            <path
+                d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.319 1.592 5.448 0 9.886-4.438 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.815-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967s-.471-.149-.67.149c-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.371-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z" />
+        </svg>
+    </a>
+
+    <script src="script.js?v=1.1"></script>
 </body>
 
 </html>

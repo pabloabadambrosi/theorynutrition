@@ -1,8 +1,11 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-    // Navbar Scroll Effect
+    // Navbar Scroll & Progress Effect
     const navbar = document.querySelector('.navbar');
+    const scrollBar = document.getElementById('scroll-bar');
+
     window.addEventListener('scroll', () => {
+        // Shadow/Padding effect
         if (window.scrollY > 50) {
             navbar.style.boxShadow = '0 5px 20px rgba(0,0,0,0.05)';
             navbar.style.padding = '1rem 0';
@@ -10,6 +13,29 @@ document.addEventListener('DOMContentLoaded', () => {
             navbar.style.boxShadow = 'none';
             navbar.style.padding = '1.5rem 0';
         }
+
+        // Scroll Progress
+        const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+        const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        const scrolled = (winScroll / height) * 100;
+        if (scrollBar) scrollBar.style.width = scrolled + "%";
+    });
+
+    // Mobile Hamburger Menu
+    const hamburger = document.querySelector('.hamburger');
+    const navLinks = document.querySelector('.nav-links');
+
+    hamburger.addEventListener('click', () => {
+        hamburger.classList.toggle('active');
+        navLinks.classList.toggle('active');
+    });
+
+    // Close menu when clicking a link
+    document.querySelectorAll('.nav-links a').forEach(link => {
+        link.addEventListener('click', () => {
+            hamburger.classList.remove('active');
+            navLinks.classList.remove('active');
+        });
     });
 
     // Smooth Scroll
@@ -86,5 +112,56 @@ document.addEventListener('DOMContentLoaded', () => {
             item.classList.toggle('active');
         });
     });
+
+    // Protein Calculator Logic
+    const weightInput = document.getElementById('calc-weight');
+    const unitSelect = document.getElementById('calc-unit');
+    const activitySelect = document.getElementById('calc-activity');
+    const resultDisplay = document.getElementById('protein-result');
+
+    function calculateProtein() {
+        let weight = parseFloat(weightInput.value);
+        const unit = unitSelect.value;
+        const multiplier = parseFloat(activitySelect.value);
+
+        if (isNaN(weight) || weight <= 0) {
+            resultDisplay.innerText = '--';
+            return;
+        }
+
+        // Convert to kg if in lbs
+        if (unit === 'lb') {
+            weight = weight / 2.20462;
+        }
+
+        const dailyProtein = Math.round(weight * multiplier);
+        resultDisplay.innerText = dailyProtein;
+    }
+
+    [weightInput, unitSelect, activitySelect].forEach(el => {
+        el.addEventListener('input', calculateProtein);
+    });
+
+    // Initial calculation
+    calculateProtein();
+
+
+    // Reveal on Scroll
+    const revealElements = document.querySelectorAll('.fade-in');
+
+    const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('reveal');
+                // Optional: stop observing after reveal
+                // revealObserver.unobserve(entry.target);
+            }
+        });
+    }, {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    });
+
+    revealElements.forEach(el => revealObserver.observe(el));
 
 });
