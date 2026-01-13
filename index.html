@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Theory Nutrition | Suplementos Deportivos Premium</title>
+    <meta name="description"
+        content="Nutrición deportiva limpia y transparente. Proteína vegetal aislada de soya premium. 0 calorías, 0 azúcares, 100% vegana.">
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container nav-container">
+            <a href="#" class="logo">Theory Nutrition</a>
+            <ul class="nav-links">
+                <li><a href="#products">Productos</a></li>
+                <li><a href="#science">Por qué Theory</a></li>
+                <li><a href="#recipes">Recetas</a></li>
+                <li><a href="#faq">FAQs</a></li>
+                <li><a href="#contact">Pre-Orden</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container hero-split">
+            <div class="hero-content">
+                <h1 class="fade-in">Pureza <span class="text-stroke">Redefinida</span>.</h1>
+                <p class="fade-in delay-1">Nutrición deportiva transparente. Fórmulas limpias. Sin rellenos
+                    artificiales. 100% Vegana.</p>
+                <a href="#products" class="btn btn-primary fade-in delay-2">Descubre La Teoría</a>
+            </div>
+            <div class="hero-product-image fade-in delay-1">
+                <img src="product_unflavored.png" alt="Theory Nutrition Real Product">
+            </div>
+        </div>
+    </section>
+
+    <!-- Product Showcase -->
+    <section id="products" class="products-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>La Colección</h2>
+                <p>Proteína Vegetal Aislada de Soya</p>
+            </div>
+
+            <div class="products-grid">
+                <!-- Product 1: Vanilla -->
+                <div class="product-card">
+                    <div class="product-image-container">
+                        <img src="product_vanilla.png" alt="Proteína Vainilla Theory Nutrition">
+                    </div>
+                    <div class="product-info">
+                        <h3>Vainilla Natural</h3>
+                        <ul class="product-specs">
+                            <li>27g Proteína</li>
+                            <li>Dairy Free</li>
+                            <li>0g Azúcar</li>
+                        </ul>
+                        <a href="#contact" class="btn btn-navy btn-sm buy-btn" data-product="Vainilla Natural">Pedir por
+                            WhatsApp</a>
+                    </div>
+                </div>
+
+                <!-- Product 2: Unflavored -->
+                <div class="product-card">
+                    <div class="product-image-container">
+                        <img src="product_unflavored.png" alt="Proteína Sin Sabor Theory Nutrition">
+                    </div>
+                    <div class="product-info">
+                        <h3>Sin Sabor (Pura)</h3>
+                        <ul class="product-specs">
+                            <li>27g Proteína</li>
+                            <li>Dairy Free</li>
+                            <li>100% Aislado de Soya</li>
+                        </ul>
+                        <a href="#contact" class="btn btn-navy btn-sm buy-btn" data-product="Pura (Sin Sabor)">Pedir por
+                            WhatsApp</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Science Section (Tabs) -->
+    <section id="science" class="science-tabs-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>La Teoría Detrás</h2>
+                <p>Explora la ciencia y la pureza detrás de nuestras fórmulas.</p>
+            </div>
+
+            <div class="tabs-nav">
+                <button class="tab-btn active" data-tab="tab-difference">La Diferencia</button>
+                <button class="tab-btn" data-tab="tab-comparison">Comparación</button>
+                <button class="tab-btn" data-tab="tab-amino">Perfil Amino</button>
+            </div>
+
+            <div class="tabs-content">
+                <!-- Tab: Difference -->
+                <div id="tab-difference" class="tab-panel active">
+                    <div class="features-grid">
+                        <div class="feature-item">
+                            <span class="feature-number">01</span>
+                            <h3>0% Rellenos</h3>
+                            <p>Sin gomas, sin espesantes artificiales. Solo ingredientes funcionales.</p>
+                        </div>
+                        <div class="feature-item">
+                            <span class="feature-number">02</span>
+                            <h3>Pureza Total</h3>
+                            <p>Sabes exactamente lo que entra en tu cuerpo. Sin mezclas propietarias.</p>
+                        </div>
+                        <div class="feature-item">
+                            <span class="feature-number">03</span>
+                            <h3>100% Vegana</h3>
+                            <p>Aislado de proteína de soya premium. Perfil completo de aminoácidos.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tab: Comparison -->
+                <div id="tab-comparison" class="tab-panel">
+                    <div class="comparison-table-wrapper">
+                        <table class="comparison-table">
+                            <thead>
+                                <tr>
+                                    <th>Característica</th>
+                                    <th class="theory-col">Theory</th>
+                                    <th>Otros</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Ingredientes</td>
+                                    <td class="theory-col">Puros (1-3)</td>
+                                    <td>8-12 (Químicos)</td>
+                                </tr>
+                                <tr>
+                                    <td>Proteína</td>
+                                    <td class="theory-col">27g</td>
+                                    <td>20-23g</td>
+                                </tr>
+                                <tr>
+                                    <td>Rellenos</td>
+                                    <td class="theory-col">0%</td>
+                                    <td>Gomas y Espesantes</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Tab: Amino -->
+                <div id="tab-amino" class="tab-panel">
+                    <div class="amino-grid mini">
+                        <div class="amino-card"><span>Leucina</span><strong>2.4g</strong></div>
+                        <div class="amino-card"><span>Isoleucina</span><strong>1.4g</strong></div>
+                        <div class="amino-card"><span>Valina</span><strong>1.5g</strong></div>
+                        <div class="amino-card"><span>Glutamina</span><strong>5.1g</strong></div>
+                        <div class="amino-card"><span>Arginina</span><strong>2.1g</strong></div>
+                        <div class="amino-card"><span>BCAAs Totales</span><strong>5.3g</strong></div>
+                    </div>
+                    <p class="amino-note" style="text-align: center; margin-top: 2rem; color: #6e7a9c;">*Valores por
+                        servicio de 30g.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Vision / Founder Section -->
+    <section id="vision" class="vision-section">
+        <div class="container vision-grid">
+            <div class="vision-image">
+                <img src="product_unflavored.png" alt="Pureza Theory" class="floating">
+            </div>
+            <div class="vision-content">
+                <span class="recipe-tag">Nuestra Visión</span>
+                <h2>Por qué creamos Theory</h2>
+                <p>En un mercado saturado de productos con etiquetas confusas y fórmulas llenas de rellenos
+                    innecesarios, decidimos volver a lo básico. </p>
+                <p>Theory Nutrition nació de la necesidad de ofrecer una nutrición <strong>honesta</strong>. Creemos que
+                    no deberías pagar por gomas, espesantes o procesos químicos que tu cuerpo no necesita. Nuestro
+                    objetivo es simple: entregarte la proteína más pura y efectiva posible, sin secretos.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Recipes Section -->
+    <section id="recipes" class="recipes-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Crea con Theory</h2>
+                <p>Nuestra proteína Sin Sabor es el lienzo perfecto para tus creaciones.</p>
+            </div>
+
+            <div class="recipes-container">
+                <!-- Recipe 1: Banana -->
+                <div class="recipe-card">
+                    <div class="recipe-image">
+                        <img src="recipe_banana.png" alt="Smoothie de Banana y Proteína">
+                    </div>
+                    <div class="recipe-content">
+                        <span class="recipe-tag">Energía Pura</span>
+                        <h3>Smoothie Creamy Banana</h3>
+                        <p>Balance perfecto de carbohidratos y proteína premium.</p>
+
+                        <div class="recipe-details">
+                            <div class="detail-item"><strong>Tiempo:</strong> 5 min</div>
+                            <div class="detail-item"><strong>Dificultad:</strong> Muy Fácil</div>
+                        </div>
+
+                        <h4>Ingredientes:</h4>
+                        <ul class="recipe-list">
+                            <li>1 Scoop de Theory Unflavored</li>
+                            <li>1 Banana (congelada)</li>
+                            <li>250ml leche vegetal</li>
+                            <li>Canela</li>
+                        </ul>
+
+                        <h4>Pasos:</h4>
+                        <ol class="recipe-steps">
+                            <li>Vierte la leche en la licuadora.</li>
+                            <li>Añade la banana y el scoop de Theory.</li>
+                            <li>Licúa y sirve.</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <!-- Recipe 2: Mango -->
+                <div class="recipe-card reverse">
+                    <div class="recipe-image">
+                        <img src="recipe_mango.png" alt="Smoothie de Mango Tropical">
+                    </div>
+                    <div class="recipe-content">
+                        <span class="recipe-tag">Tropical & Refresh</span>
+                        <h3>Mango Tropical Boost</h3>
+                        <p>Una explosión de sabor refrescante y vitamina C.</p>
+
+                        <div class="recipe-details">
+                            <div class="detail-item"><strong>Tiempo:</strong> 5 min</div>
+                            <div class="detail-item"><strong>Dificultad:</strong> Fácil</div>
+                        </div>
+
+                        <h4>Ingredientes:</h4>
+                        <ul class="recipe-list">
+                            <li>1 Scoop de Theory Unflavored</li>
+                            <li>1/2 Mango fresco</li>
+                            <li>200ml agua de coco</li>
+                        </ul>
+
+                        <h4>Pasos:</h4>
+                        <ol class="recipe-steps">
+                            <li>Introduce el mango y líquidos.</li>
+                            <li>Añade el scoop de Theory.</li>
+                            <li>Licúa y sirve bien frío.</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq" class="faq-section">
+        <div class="container faq-container">
+            <div class="section-header">
+                <h2>Preguntas Frecuentes</h2>
+                <p>Despejamos tus dudas sobre la nutrición transparente.</p>
+            </div>
+
+            <div class="accordion">
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <h3>¿De qué está hecha exactamente la proteína?</h3>
+                        <span class="icon">+</span>
+                    </div>
+                    <div class="accordion-content">
+                        <p>Sin Sabor: únicamente Aislado de Proteína de Soya. Vainilla: Aislado de Soya, sabor natural y
+                            sucralosa.</p>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <h3>¿Es una proteína completa?</h3>
+                        <span class="icon">+</span>
+                    </div>
+                    <div class="accordion-content">
+                        <p>Sí. Contiene todos los aminoácidos esenciales necesarios para la síntesis muscular.</p>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <h3>¿Por qué no usan gomas?</h3>
+                        <span class="icon">+</span>
+                    </div>
+                    <div class="accordion-content">
+                        <p>Confiamos en la calidad de nuestro aislado premium que se disuelve perfectamente sin
+                            espesantes artificiales.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pre-Order / Contact Form -->
+    <section id="contact" class="contact-section">
+        <div class="container contact-container">
+            <div class="contact-text">
+                <h2>Envía tu Orden</h2>
+                <p>Tu pedido será enviado directamente a nuestro WhatsApp para una atención personalizada.</p>
+
+                <div class="stockists">
+                    <h3>Puntos de Venta</h3>
+                    <ul>
+                        <li>Iron Gym Fitness Center</li>
+                        <li>Natural Life Market</li>
+                        <li>CrossFit Zona 4</li>
+                    </ul>
+                </div>
+            </div>
+
+            <form id="preorder-form" class="clean-form">
+                <div class="form-group">
+                    <label for="name">Nombre Completo</label>
+                    <input type="text" id="name" required placeholder="Tu Nombre">
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" required placeholder="tu@email.com">
+                </div>
+
+                <div class="image-select-group">
+                    <label>Selecciona tu Sabor</label>
+                    <div class="flavor-options">
+                        <div class="flavor-option" data-value="vainilla">
+                            <img src="product_vanilla.png" alt="Vainilla">
+                            <span>Vainilla</span>
+                        </div>
+                        <div class="flavor-option" data-value="sin-sabor">
+                            <img src="product_unflavored.png" alt="Sin Sabor">
+                            <span>Sin Sabor</span>
+                        </div>
+                    </div>
+                    <input type="hidden" id="flavor" name="flavor" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="quantity">Cantidad</label>
+                    <input type="number" id="quantity" min="1" value="1" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="message">Mensaje (Opcional)</label>
+                    <textarea id="message" rows="3" placeholder="¿Alguna pregunta?"></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-block btn-navy">Pedir por WhatsApp</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="container footer-content">
+            <div class="footer-logo">Theory Nutrition</div>
+            <div class="footer-copy">
+                &copy; 2024 Theory Nutrition. Todos los derechos reservados.
+            </div>
+            <div class="social-links">
+                <a href="#">Instagram</a>
+                <a href="https://wa.me/593987706360">WhatsApp</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
