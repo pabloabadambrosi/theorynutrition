@@ -38,16 +38,84 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Smooth Scroll
+    // View Switcher System
+    const navLinksList = document.querySelectorAll('.nav-links a:not(.btn-nav)');
+    const views = document.querySelectorAll('.content-view');
+
+    function switchView(viewId) {
+        // Remove active class from all views and links
+        views.forEach(v => v.classList.remove('active'));
+        navLinksList.forEach(l => l.classList.remove('active'));
+
+        // Activate target view
+        const targetView = document.getElementById(viewId);
+        if (targetView) {
+            targetView.classList.add('active');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            // Update nav active state
+            const activeLink = document.querySelector(`.nav-links a[href="#${viewId}"]`);
+            if (activeLink) activeLink.classList.add('active');
+
+            // Update URL hash without jumping
+            history.pushState(null, null, `#${viewId}`);
+        }
+    }
+
+    // Handle Nav Clicks
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
-            if (target) {
-                target.scrollIntoView({ behavior: 'smooth' });
+            const href = this.getAttribute('href');
+
+            // Special case: Calculator (Modal)
+            if (href === '#calculator') {
+                e.preventDefault();
+                const calcSection = document.getElementById('calculator');
+                if (calcSection) {
+                    calcSection.style.display = 'flex';
+                    setTimeout(() => calcSection.classList.add('active'), 10);
+                    document.body.style.overflow = 'hidden';
+                }
+                return;
+            }
+
+            // Normal Section Links
+            if (document.getElementById(href.substring(1))) {
+                e.preventDefault();
+                switchView(href.substring(1));
+
+                // Close mobile menu
+                hamburger.classList.remove('active');
+                navLinks.classList.remove('active');
             }
         });
     });
+
+    // Initialize View on Load
+    const initialHash = window.location.hash.substring(1);
+    const validSections = ['home', 'products', 'science', 'recipes', 'contact'];
+    if (initialHash && validSections.includes(initialHash)) {
+        switchView(initialHash);
+    } else {
+        switchView('home');
+    }
+
+    // Close Calculator Modal
+    const closeCalcBtn = document.querySelector('.close-calc');
+    const calcSection = document.getElementById('calculator');
+
+    if (closeCalcBtn && calcSection) {
+        closeCalcBtn.addEventListener('click', () => {
+            calcSection.classList.remove('active');
+            setTimeout(() => calcSection.style.display = 'none', 400);
+            document.body.style.overflow = 'auto';
+        });
+
+        // Close on outside click
+        calcSection.addEventListener('click', (e) => {
+            if (e.target === calcSection) closeCalcBtn.click();
+        });
+    }
 
     // Toggle Tabs
     const tabBtns = document.querySelectorAll('.tab-btn');
@@ -63,6 +131,21 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    // Recipe Tabs logic
+    const recipeTabs = document.querySelectorAll('.recipe-tab-btn');
+    const recipePanels = document.querySelectorAll('.recipe-display-panel');
+
+    recipeTabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            const target = tab.getAttribute('data-recipe');
+            recipeTabs.forEach(t => t.classList.remove('active'));
+            recipePanels.forEach(p => p.classList.remove('active'));
+            tab.classList.add('active');
+            const panel = document.getElementById(target);
+            if (panel) panel.classList.add('active');
+        });
+    });
+
     // Flavor Selection
     const flavorOptions = document.querySelectorAll('.flavor-option');
     const flavorInput = document.getElementById('flavor');
@@ -71,17 +154,25 @@ document.addEventListener('DOMContentLoaded', () => {
         option.addEventListener('click', () => {
             flavorOptions.forEach(opt => opt.classList.remove('selected'));
             option.classList.add('selected');
-            flavorInput.value = option.dataset.value;
+            if (flavorInput) flavorInput.value = option.dataset.value;
         });
     });
 
-    // Buy Buttons auto-select flavor
+    // Buy Buttons auto-select flavor and switch to contact
     document.querySelectorAll('.buy-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
             const product = btn.dataset.product.toLowerCase();
             const val = product.includes('vainilla') ? 'vainilla' : 'sin-sabor';
-            const option = document.querySelector(`.flavor-option[data-value="${val}"]`);
-            if (option) option.click();
+
+            // Switch to contact view first
+            switchView('contact');
+
+            // Auto click the option in the form
+            setTimeout(() => {
+                const option = document.querySelector(`.flavor-option[data-value="${val}"]`);
+                if (option) option.click();
+            }, 100);
         });
     });
 
@@ -113,38 +204,78 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Protein Calculator Logic
+    // Protein & IMC Calculator Logic
     const weightInput = document.getElementById('calc-weight');
     const unitSelect = document.getElementById('calc-unit');
+    const heightInput = document.getElementById('calc-height');
+    const heightUnitSelect = document.getElementById('calc-height-unit');
     const activitySelect = document.getElementById('calc-activity');
-    const resultDisplay = document.getElementById('protein-result');
+    const proteinResultDisplay = document.getElementById('protein-result');
+    const imcResultDisplay = document.getElementById('imc-result');
+    const imcCategoryDisplay = document.getElementById('imc-category');
 
-    function calculateProtein() {
+    function calculateData() {
         let weight = parseFloat(weightInput.value);
-        const unit = unitSelect.value;
+        const weightUnit = unitSelect.value;
+        let height = parseFloat(heightInput.value);
+        const heightUnit = heightUnitSelect.value;
         const multiplier = parseFloat(activitySelect.value);
 
-        if (isNaN(weight) || weight <= 0) {
-            resultDisplay.innerText = '--';
+        if (isNaN(weight) || weight <= 0 || isNaN(height) || height <= 0) {
+            proteinResultDisplay.innerText = '--';
+            imcResultDisplay.innerText = '--';
             return;
         }
 
-        // Convert to kg if in lbs
-        if (unit === 'lb') {
-            weight = weight / 2.20462;
+        // Normalize weight to kg
+        let weightKg = weight;
+        if (weightUnit === 'lb') {
+            weightKg = weight / 2.20462;
         }
 
-        const dailyProtein = Math.round(weight * multiplier);
-        resultDisplay.innerText = dailyProtein;
+        // Normalize height to meters
+        let heightM = height;
+        if (heightUnit === 'cm') {
+            heightM = height / 100;
+        }
+
+        // Calculate Protein
+        const dailyProtein = Math.round(weightKg * multiplier);
+        proteinResultDisplay.innerText = dailyProtein;
+
+        // Calculate IMC (BMI) = kg / m^2
+        const imc = (weightKg / (heightM * heightM)).toFixed(1);
+        imcResultDisplay.innerText = imc;
+
+        // IMC Category
+        let category = "Normal";
+        if (imc < 18.5) category = "Bajo peso";
+        else if (imc >= 25 && imc < 30) category = "Sobrepeso";
+        else if (imc >= 30) category = "Obesidad";
+
+        imcCategoryDisplay.innerText = `Cat: ${category}`;
     }
 
-    [weightInput, unitSelect, activitySelect].forEach(el => {
-        el.addEventListener('input', calculateProtein);
+    [weightInput, unitSelect, heightInput, heightUnitSelect, activitySelect].forEach(el => {
+        if (el) el.addEventListener('input', calculateData);
     });
 
-    // Initial calculation
-    calculateProtein();
+    // Magnetic Buttons Interaction
+    const magneticElements = document.querySelectorAll('.btn, .btn-nav, .social-link, .nav-links a, .whatsapp-float');
 
+    magneticElements.forEach(el => {
+        el.addEventListener('mousemove', (e) => {
+            const rect = el.getBoundingClientRect();
+            const x = e.clientX - rect.left - rect.width / 2;
+            const y = e.clientY - rect.top - rect.height / 2;
+
+            el.style.transform = `translate(${x * 0.3}px, ${y * 0.3}px)`;
+        });
+
+        el.addEventListener('mouseleave', () => {
+            el.style.transform = '';
+        });
+    });
 
     // Reveal on Scroll
     const revealElements = document.querySelectorAll('.fade-in');
@@ -153,8 +284,6 @@ document.addEventListener('DOMContentLoaded', () => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('reveal');
-                // Optional: stop observing after reveal
-                // revealObserver.unobserve(entry.target);
             }
         });
     }, {
@@ -163,5 +292,4 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     revealElements.forEach(el => revealObserver.observe(el));
-
 });
