@@ -146,17 +146,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Flavor Selection
-    const flavorOptions = document.querySelectorAll('.flavor-option');
-    const flavorInput = document.getElementById('flavor');
-
-    flavorOptions.forEach(option => {
-        option.addEventListener('click', () => {
-            flavorOptions.forEach(opt => opt.classList.remove('selected'));
-            option.classList.add('selected');
-            if (flavorInput) flavorInput.value = option.dataset.value;
-        });
-    });
+    // Flavor Selection (handled by dynamic selection summary below)
 
     // Buy Buttons auto-select flavor and switch to contact
     document.querySelectorAll('.buy-btn').forEach(btn => {
@@ -176,26 +166,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // WhatsApp Form Redirection
-    const form = document.getElementById('preorder-form');
-    form.addEventListener('submit', (e) => {
-        e.preventDefault();
-
-        const flavor = document.getElementById('flavor').value;
-        const name = document.getElementById('name').value;
-        const qty = document.getElementById('quantity').value;
-        const msg = document.getElementById('message').value;
-
-        if (!flavor) {
-            alert('Selecciona un sabor por favor.');
-            return;
-        }
-
-        const phone = '593987706360';
-        const text = `Hola Theory Nutrition! 🥛%0AQuiero ordenar:%0A*Sabor:* ${flavor}%0A*Cantidad:* ${qty}%0A*Nombre:* ${name}%0A*Nota:* ${msg}`;
-
-        window.open(`https://wa.me/${phone}?text=${text}`, '_blank');
-    });
+    // WhatsApp Form Redirection (handled by consolidated logic below)
 
     // FAQ Accordion
     document.querySelectorAll('.accordion-item').forEach(item => {
@@ -316,6 +287,73 @@ document.addEventListener('DOMContentLoaded', () => {
     calculateData();
     calculateCarbs();
 
+    // Scroll Reveal Intersection Observer
+    const revealCallback = (entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('active');
+            }
+        });
+    };
+
+    const revealObserver = new IntersectionObserver(revealCallback, {
+        threshold: 0.1
+    });
+
+    document.querySelectorAll('.reveal').forEach(el => {
+        revealObserver.observe(el);
+    });
+
+    // Dynamic Selection Summary
+    const flavorOptions = document.querySelectorAll('.flavor-option');
+    const summaryBox = document.getElementById('selection-summary');
+    const summaryIcon = document.getElementById('summary-icon').querySelector('img');
+    const summaryText = document.getElementById('summary-text-val');
+    const flavorInput = document.getElementById('flavor');
+
+    flavorOptions.forEach(option => {
+        option.addEventListener('click', () => {
+            const flavor = option.dataset.value;
+            const imgSrc = option.querySelector('img').src;
+            const labelText = option.querySelector('span').innerText;
+
+            flavorOptions.forEach(opt => opt.classList.remove('selected'));
+            option.classList.add('selected');
+            flavorInput.value = flavor;
+
+            // Update Summary
+            summaryIcon.src = imgSrc;
+            summaryText.innerText = labelText;
+            summaryBox.classList.add('active');
+
+            // Subtle bounce animation
+            summaryBox.style.animation = 'none';
+            summaryBox.offsetHeight; // trigger reflow
+            summaryBox.style.animation = 'slideUpFade 0.4s ease';
+        });
+    });
+
+    // Consolidated Buy Form Redirection
+    const buyForm = document.getElementById('buy-form');
+    if (buyForm) {
+        buyForm.addEventListener('submit', function (e) {
+            e.preventDefault();
+            const name = document.getElementById('name').value;
+            const flavor = flavorInput.value;
+            const quantity = document.getElementById('quantity').value;
+
+            if (!flavor) {
+                alert('Por favor selecciona un sabor');
+                return;
+            }
+
+            const phone = '593987706360';
+            const message = `Hola Theory! Mi nombre es ${name}. Me gustaría pedir ${quantity} unidad(es) de Theory Gold Isolate sabor ${flavor}.`;
+            const whatsappUrl = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+            window.open(whatsappUrl, '_blank');
+        });
+    }
+
     // Magnetic Buttons Interaction
     const magneticElements = document.querySelectorAll('.btn, .btn-nav, .social-link, .nav-links a, .whatsapp-float');
 
@@ -332,20 +370,4 @@ document.addEventListener('DOMContentLoaded', () => {
             el.style.transform = '';
         });
     });
-
-    // Reveal on Scroll
-    const revealElements = document.querySelectorAll('.fade-in');
-
-    const revealObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('reveal');
-            }
-        });
-    }, {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
-    });
-
-    revealElements.forEach(el => revealObserver.observe(el));
 });

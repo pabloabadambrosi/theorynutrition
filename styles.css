@@ -7,7 +7,7 @@
     --color-text-light: #6e7a9c;
 
     --font-heading: 'Outfit', sans-serif;
-    --font-body: 'Inter', sans-serif;
+    --font-body: 'Montserrat', sans-serif;
 
     --transition-smooth: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -242,6 +242,106 @@ ul {
     background: var(--color-navy);
     width: 0%;
     transition: width 0.1s ease-out;
+}
+
+/* Reveal Animations */
+.reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.reveal-delay-1 {
+    transition-delay: 0.1s;
+}
+
+.reveal-delay-2 {
+    transition-delay: 0.2s;
+}
+
+.reveal-delay-3 {
+    transition-delay: 0.3s;
+}
+
+/* Selection Summary Styles */
+.selection-summary {
+    background: var(--color-cloud);
+    padding: 1.5rem;
+    border-radius: 15px;
+    margin: 1.5rem 0;
+    display: none;
+    animation: fadeIn 0.4s ease;
+    border-left: 4px solid var(--color-navy);
+}
+
+.selection-summary.active {
+    display: block;
+}
+
+.summary-title {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 700;
+    color: var(--color-navy-light);
+    margin-bottom: 0.5rem;
+}
+
+.summary-content {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-weight: 600;
+    color: var(--color-navy);
+}
+
+.summary-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+.buy-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.buy-btn svg {
+    margin-left: 0;
+    /* Already handled by gap if using flex, but keeping it explicit if needed */
+}
+
+.summary-icon img {
+    width: 25px;
+    height: 25px;
+    object-fit: contain;
+}
+
+.total-pill {
+    margin-left: auto;
+    background: var(--color-navy);
+    color: white;
+    padding: 0.4rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+}
+
+.view-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .nav-container {
@@ -1735,8 +1835,13 @@ ul {
     gap: 0.5rem;
     -ms-overflow-style: none;
     /* IE and Edge */
-    scrollbar-width: none;
-    /* Firefox */
+}
+
+/* Firefox and modern standard */
+@supports (scrollbar-width: none) {
+    .recipe-tabs-nav {
+        scrollbar-width: none;
+    }
 }
 
 .recipe-tabs-nav::-webkit-scrollbar {
