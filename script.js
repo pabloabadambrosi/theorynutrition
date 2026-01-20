@@ -204,6 +204,20 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    // Calculator Mode Switching
+    const modeBtns = document.querySelectorAll('.calc-mode-btn');
+    const calcPanels = document.querySelectorAll('.calc-panel');
+
+    modeBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const mode = btn.dataset.mode;
+            modeBtns.forEach(b => b.classList.remove('active'));
+            calcPanels.forEach(p => p.classList.remove('active'));
+            btn.classList.add('active');
+            document.getElementById(mode).classList.add('active');
+        });
+    });
+
     // Protein & IMC Calculator Logic
     const weightInput = document.getElementById('calc-weight');
     const unitSelect = document.getElementById('calc-unit');
@@ -214,7 +228,49 @@ document.addEventListener('DOMContentLoaded', () => {
     const imcResultDisplay = document.getElementById('imc-result');
     const imcCategoryDisplay = document.getElementById('imc-category');
 
+    // Carbohydrate Calculator Inputs
+    const carbSport = document.getElementById('carb-sport');
+    const carbDuration = document.getElementById('carb-duration');
+    const carbIntensity = document.getElementById('carb-intensity');
+    const carbAge = document.getElementById('carb-age');
+    const carbResultDisplay = document.getElementById('carb-result');
+    const carbProtocolDisplay = document.getElementById('carb-protocol');
+
+    function calculateCarbs() {
+        const sport = carbSport.value;
+        const duration = parseFloat(carbDuration.value);
+        const intensity = carbIntensity.value;
+        const age = carbAge.value;
+
+        let gramsPerHour = 0;
+        let protocol = "";
+
+        if (duration < 1) {
+            gramsPerHour = intensity === 'high' ? 15 : 0;
+            protocol = duration < 0.75 ? "Enjuague bucal" : "Pequeñas dosis opcionales";
+        } else if (duration >= 1 && duration <= 2.5) {
+            gramsPerHour = intensity === 'low' ? 30 : (intensity === 'med' ? 45 : 60);
+            protocol = "Fuente única (Glucosa)";
+        } else {
+            // > 2.5h
+            if (sport === 'ultra' || intensity === 'high') {
+                gramsPerHour = 90;
+                protocol = "Mezcla Glucosa:Fructosa (2:1)";
+            } else {
+                gramsPerHour = 60;
+                protocol = "Carga constante";
+            }
+        }
+
+        // Adjust for Elite/Master age if specified (simple adjustment)
+        if (age === 'youth' && duration > 2) gramsPerHour = Math.min(gramsPerHour, 60);
+
+        carbResultDisplay.innerText = gramsPerHour;
+        carbProtocolDisplay.innerText = protocol;
+    }
+
     function calculateData() {
+        // ... (Existing protein logic)
         let weight = parseFloat(weightInput.value);
         const weightUnit = unitSelect.value;
         let height = parseFloat(heightInput.value);
@@ -227,27 +283,17 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        // Normalize weight to kg
         let weightKg = weight;
-        if (weightUnit === 'lb') {
-            weightKg = weight / 2.20462;
-        }
-
-        // Normalize height to meters
+        if (weightUnit === 'lb') weightKg = weight / 2.20462;
         let heightM = height;
-        if (heightUnit === 'cm') {
-            heightM = height / 100;
-        }
+        if (heightUnit === 'cm') heightM = height / 100;
 
-        // Calculate Protein
         const dailyProtein = Math.round(weightKg * multiplier);
         proteinResultDisplay.innerText = dailyProtein;
 
-        // Calculate IMC (BMI) = kg / m^2
         const imc = (weightKg / (heightM * heightM)).toFixed(1);
         imcResultDisplay.innerText = imc;
 
-        // IMC Category
         let category = "Normal";
         if (imc < 18.5) category = "Bajo peso";
         else if (imc >= 25 && imc < 30) category = "Sobrepeso";
@@ -256,9 +302,19 @@ document.addEventListener('DOMContentLoaded', () => {
         imcCategoryDisplay.innerText = `Cat: ${category}`;
     }
 
+    // Listeners for Protein
     [weightInput, unitSelect, heightInput, heightUnitSelect, activitySelect].forEach(el => {
         if (el) el.addEventListener('input', calculateData);
     });
+
+    // Listeners for Carbs
+    [carbSport, carbDuration, carbIntensity, carbAge].forEach(el => {
+        if (el) el.addEventListener('input', calculateCarbs);
+    });
+
+    // Run initial calculations
+    calculateData();
+    calculateCarbs();
 
     // Magnetic Buttons Interaction
     const magneticElements = document.querySelectorAll('.btn, .btn-nav, .social-link, .nav-links a, .whatsapp-float');

@@ -1655,15 +1655,16 @@ ul {
         gap: 3rem;
     }
 }
+
 /* Recipe Explorer Styles */
 .recipe-explorer-container {
     max-width: 1000px;
     margin: 3rem auto;
     background: var(--color-white);
     border-radius: 32px;
-    box-shadow: 0 40px 100px rgba(0,0,0,0.05);
+    box-shadow: 0 40px 100px rgba(0, 0, 0, 0.05);
     overflow: hidden;
-    border: 1px solid rgba(0,0,0,0.02);
+    border: 1px solid rgba(0, 0, 0, 0.02);
 }
 
 .recipe-tabs-nav {
@@ -1696,7 +1697,7 @@ ul {
 .recipe-tab-btn.active {
     background: var(--color-white);
     color: var(--color-navy);
-    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
 }
 
 .recipe-display-panel {
@@ -1727,7 +1728,7 @@ ul {
     position: absolute;
     top: 1rem;
     left: 1rem;
-    background: rgba(255,255,255,0.9);
+    background: rgba(255, 255, 255, 0.9);
     padding: 0.4rem 1rem;
     border-radius: 40px;
     font-size: 0.8rem;
@@ -1819,7 +1820,80 @@ ul {
         grid-template-columns: 1fr;
         padding: 1.5rem;
     }
+
     .recipe-ingredients-list {
         grid-template-columns: 1fr;
+    }
+}
+
+/* Calculator Modes */
+.calc-mode-tabs {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin: 2rem 0;
+    padding: 0.5rem;
+    background: var(--color-cloud);
+    border-radius: 60px;
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.calc-mode-btn {
+    padding: 0.8rem 1.8rem;
+    border: none;
+    background: transparent;
+    color: var(--color-text-light);
+    font-weight: 600;
+    font-size: 0.9rem;
+    border-radius: 40px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.calc-mode-btn.active {
+    background: var(--color-navy);
+    color: white;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.calc-panel {
+    display: none;
+    animation: fadeIn 0.5s ease;
+}
+
+.calc-panel.active {
+    display: block;
+}
+
+.sub-text {
+    font-size: 1.1rem !important;
+    font-weight: 500 !important;
+    color: var(--color-navy) !important;
+    line-height: 1.3;
+    padding: 0.5rem 0;
+}
+
+.carbs-box {
+    background: linear-gradient(135deg, rgba(255, 140, 0, 0.08) 0%, rgba(255, 69, 0, 0.05) 100%);
+    border: 1px solid rgba(255, 140, 0, 0.1);
+}
+
+.protocol-box {
+    background: linear-gradient(135deg, rgba(30, 144, 255, 0.08) 0%, rgba(0, 191, 255, 0.05) 100%);
+    border: 1px solid rgba(30, 144, 255, 0.1);
+}
+
+@media (max-width: 768px) {
+    .calc-mode-tabs {
+        width: 100%;
+        gap: 0.5rem;
+    }
+
+    .calc-mode-btn {
+        padding: 0.6rem 1rem;
+        font-size: 0.8rem;
+        flex: 1;
     }
 }
