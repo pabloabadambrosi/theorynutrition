@@ -466,7 +466,7 @@ ul {
     width: 100%;
     max-width: 500px;
     height: auto;
-    filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.1));
+    mix-blend-mode: multiply;
     transform: rotate(2deg);
     animation: floating 3s ease-in-out infinite;
 }
@@ -600,17 +600,16 @@ ul {
     align-items: center;
     justify-content: center;
     margin-bottom: 2rem;
-    background: #f9f9f9;
-    border-radius: 4px;
     padding: 2rem;
 }
 
 .product-image-container img {
-    max-width: 90%;
-    max-height: 90%;
+    max-width: 95%;
+    max-height: 95%;
     width: auto;
     height: auto;
     object-fit: contain;
+    mix-blend-mode: multiply;
     transition: var(--transition-smooth);
 }
 
@@ -1340,7 +1339,7 @@ ul {
     width: 80px;
     height: 80px;
     object-fit: contain;
-    filter: drop-shadow(0 5px 10px rgba(0, 0, 0, 0.1));
+    mix-blend-mode: multiply;
     transition: var(--transition-smooth);
 }
 
@@ -1714,6 +1713,7 @@ ul {
     width: 100%;
     height: auto;
     border-radius: 12px;
+    mix-blend-mode: multiply;
     transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
