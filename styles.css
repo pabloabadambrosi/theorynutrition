@@ -1472,4 +1472,157 @@ transition-delay: 0.2s;
     .clean-form {
         padding: 2rem;
     }
+}/* Wizard Styles */
+.wizard-container {
+    padding: 1rem;
+    min-height: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.wizard-step {
+    display: none;
+    animation: slideUpFade 0.5s ease;
+    text-align: center;
+}
+
+.wizard-step.active {
+    display: block;
+}
+
+.step-label {
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+    color: var(--color-accent);
+    margin-bottom: 1rem;
+    display: block;
+}
+
+.wizard-step h3 {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    color: var(--color-text-main);
+}
+
+.input-highlight {
+    border: none;
+    border-bottom: 2px solid var(--color-border-glass);
+    background: transparent !important;
+    border-radius: 0 !important;
+    font-size: 2rem !important;
+    text-align: center;
+    padding: 0.5rem !important;
+    color: var(--color-text-main) !important;
+    width: 100% !important;
+    max-width: 300px;
+}
+
+.input-highlight:focus {
+    box-shadow: none !important;
+    border-color: var(--color-accent);
+}
+
+.wizard-btn-group {
+    margin-top: 3rem;
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.step-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.step-card-option {
+    background: var(--color-cloud);
+    padding: 1.5rem;
+    border-radius: 16px;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: var(--transition-smooth);
+}
+
+.step-card-option:hover {
+    background: var(--color-white);
+    transform: translateY(-3px);
+}
+
+.step-card-option.selected {
+    border-color: var(--color-accent);
+    background: var(--color-white);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+}
+
+.gender-icon {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+    display: block;
+}
+
+/* Loading Screen */
+.loading-screen {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 400px;
+    text-align: center;
+}
+
+.logo-spinner {
+    width: 80px;
+    height: 80px;
+    margin-bottom: 2rem;
+    animation: theorySpin 2s infinite linear;
+}
+
+@keyframes theorySpin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.loading-text {
+    font-size: 1.2rem;
+    color: var(--color-navy);
+    animation: pulse 1.5s infinite ease-in-out;
+}
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        opacity: 0.6;
+    }
+
+    50% {
+        opacity: 1;
+    }
+}
+
+/* Results Customization for Wizard */
+.wizard-results {
+    display: none;
+    text-align: center;
+}
+
+.user-greeting {
+    font-size: 1.5rem;
+    color: var(--color-text-main);
+    margin-bottom: 2rem;
+}
+
+.user-greeting span {
+    color: var(--color-accent);
+    font-weight: 700;
 }

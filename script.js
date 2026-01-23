@@ -188,132 +188,140 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Protein & IMC Calculator Logic
-    const weightInput = document.getElementById('calc-weight');
-    const unitSelect = document.getElementById('calc-unit');
-    const heightInput = document.getElementById('calc-height');
-    const heightUnitSelect = document.getElementById('calc-height-unit');
-    const genderSelect = document.getElementById('calc-gender');
-    const ageInput = document.getElementById('calc-age');
-    const goalSelect = document.getElementById('calc-goal');
-    const activitySelect = document.getElementById('calc-activity');
-    const proteinResultDisplay = document.getElementById('protein-result');
-    const imcResultDisplay = document.getElementById('imc-result');
-    const imcCategoryDisplay = document.getElementById('imc-category');
+    // Wizard Logic
+    const steps = document.querySelectorAll('.wizard-step');
+    const totalSteps = steps.length;
+    let currentStep = 1;
 
-    // Carbohydrate Calculator Inputs
-    const carbSport = document.getElementById('carb-sport');
-    const carbDuration = document.getElementById('carb-duration');
-    const carbIntensity = document.getElementById('carb-intensity');
-    const carbAge = document.getElementById('carb-age');
-    const carbResultDisplay = document.getElementById('carb-result');
-    const carbProtocolDisplay = document.getElementById('carb-protocol');
+    // Next Buttons
+    document.querySelectorAll('.next-step').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const stepEl = document.querySelector(`.wizard-step[data-step="${currentStep}"]`);
 
-    function calculateCarbs() {
-        const sport = carbSport.value;
-        const duration = parseFloat(carbDuration.value);
-        const intensity = carbIntensity.value;
-        const age = carbAge.value;
-
-        let gramsPerHour = 0;
-        let protocol = "";
-
-        if (duration < 1) {
-            gramsPerHour = intensity === 'high' ? 15 : 0;
-            protocol = duration < 0.75 ? "Enjuague bucal" : "Pequeñas dosis opcionales";
-        } else if (duration >= 1 && duration <= 2.5) {
-            gramsPerHour = intensity === 'low' ? 30 : (intensity === 'med' ? 45 : 60);
-            protocol = "Fuente única (Glucosa)";
-        } else {
-            // > 2.5h
-            if (sport === 'ultra' || intensity === 'high') {
-                gramsPerHour = 90;
-                protocol = "Mezcla Glucosa:Fructosa (2:1)";
-            } else {
-                gramsPerHour = 60;
-                protocol = "Carga constante";
+            // Basic Validation
+            if (currentStep === 1) {
+                const name = document.getElementById('wiz-name').value;
+                if (!name.trim()) { alert('Por favor ingresa tu nombre'); return; }
+                document.getElementById('res-name').innerText = name;
             }
+            if (currentStep === 2) {
+                const gender = document.getElementById('wiz-gender').value;
+                const age = document.getElementById('wiz-age').value;
+                if (!gender || !age) { alert('Completa los campos requeridos'); return; }
+            }
+
+            if (currentStep < totalSteps) {
+                stepEl.classList.remove('active');
+                currentStep++;
+                const nextEl = document.querySelector(`.wizard-step[data-step="${currentStep}"]`);
+                nextEl.classList.add('active');
+            }
+        });
+    });
+
+    // Prev Buttons
+    document.querySelectorAll('.prev-step').forEach(btn => {
+        btn.addEventListener('click', () => {
+            if (currentStep > 1) {
+                document.querySelector(`.wizard-step[data-step="${currentStep}"]`).classList.remove('active');
+                currentStep--;
+                document.querySelector(`.wizard-step[data-step="${currentStep}"]`).classList.add('active');
+            }
+        });
+    });
+
+    // Card Selection
+    document.querySelectorAll('.step-card-option').forEach(card => {
+        card.addEventListener('click', () => {
+            const group = card.dataset.group;
+            // Deselect siblings
+            document.querySelectorAll(`.step-card-option[data-group="${group}"]`).forEach(c => c.classList.remove('selected'));
+            // Select this
+            card.classList.add('selected');
+            // Update hidden input
+            if (group === 'gender') document.getElementById('wiz-gender').value = card.dataset.value;
+            if (group === 'goal') document.getElementById('wiz-goal').value = card.dataset.value;
+        });
+    });
+
+    // Final Calculate
+    document.getElementById('wiz-calculate').addEventListener('click', () => {
+        const weight = parseFloat(document.getElementById('wiz-weight').value);
+        const height = parseFloat(document.getElementById('wiz-height').value);
+        const goal = document.getElementById('wiz-goal').value;
+
+        if (!weight || !height || !goal) {
+            alert('Por favor completa todos los datos'); return;
         }
 
-        // Adjust for Elite/Master age if specified (simple adjustment)
-        if (age === 'youth' && duration > 2) gramsPerHour = Math.min(gramsPerHour, 60);
+        // Hide Step 4
+        document.querySelector(`.wizard-step[data-step="4"]`).classList.remove('active');
 
-        carbResultDisplay.innerText = gramsPerHour;
-        carbProtocolDisplay.innerText = protocol;
-    }
+        // Show Loading
+        const loadingScreen = document.getElementById('calc-loading');
+        loadingScreen.style.display = 'flex';
 
-    function calculateData() {
-        let weight = parseFloat(weightInput.value);
-        const weightUnit = unitSelect.value;
-        let height = parseFloat(heightInput.value);
-        const heightUnit = heightUnitSelect.value;
-        const gender = genderSelect.value;
-        const age = parseFloat(ageInput.value);
-        const goal = goalSelect.value;
-        const activity = parseFloat(activitySelect.value);
+        setTimeout(() => {
+            loadingScreen.style.display = 'none';
+            calculateWizardResults();
+            document.getElementById('wiz-results').style.display = 'block';
+        }, 3000); // 3 seconds spin
+    });
 
-        if (isNaN(weight) || weight <= 0 || isNaN(height) || height <= 0 || isNaN(age)) {
-            proteinResultDisplay.innerText = '--';
-            imcResultDisplay.innerText = '--';
-            return;
-        }
+    document.getElementById('wiz-reset').addEventListener('click', () => {
+        document.getElementById('wiz-results').style.display = 'none';
+        currentStep = 1;
+        document.querySelector(`.wizard-step[data-step="1"]`).classList.add('active');
 
-        // Conversions to Metric
-        let weightKg = weight;
-        if (weightUnit === 'lb') weightKg = weight / 2.20462;
-        let heightCm = height;
-        if (heightUnit === 'm') heightCm = height * 100;
+        // Reset Inputs
+        document.getElementById('wiz-name').value = "";
+        document.getElementById('wiz-weight').value = "";
+        document.getElementById('wiz-height').value = "";
+        document.getElementById('wiz-age').value = "";
+        document.getElementById('wiz-steps').value = "";
+        document.querySelectorAll('.step-card-option').forEach(c => c.classList.remove('selected'));
+    });
 
-        // Mifflin-St Jeor BMR Calculation
-        let bmr = (10 * weightKg) + (6.25 * heightCm) - (5 * age);
+    function calculateWizardResults() {
+        // Collect Data
+        const gender = document.getElementById('wiz-gender').value;
+        const age = parseFloat(document.getElementById('wiz-age').value);
+        const weight = parseFloat(document.getElementById('wiz-weight').value);
+        const height = parseFloat(document.getElementById('wiz-height').value);
+        const steps = parseFloat(document.getElementById('wiz-steps').value) || 0;
+        const activityVal = parseFloat(document.getElementById('wiz-activity').value);
+        const goal = document.getElementById('wiz-goal').value;
+
+        // BMR (Mifflin-St Jeor)
+        let bmr = (10 * weight) + (6.25 * height) - (5 * age);
         bmr += (gender === 'male') ? 5 : -161;
 
-        // TDEE (Total Daily Energy Expenditure)
-        const tdee = bmr * activity;
+        // Activity Multiplier Logic (incorporating steps)
+        // If steps are high, we can boost the activity multiplier slightly or confirm it
+        let realActivity = activityVal;
+        let stepText = "Sedentario";
 
-        // Protein Calculation based on Goal (g/kg approach for accuracy)
-        // Maintain: 1.4-1.6g/kg, Muscle: 1.8-2.2g/kg, Loss: 1.8-2.4g/kg (high protein preserves lean mass in deficit)
-        let proteinFactor = 1.6; // default maintain
+        if (steps > 12000) { realActivity = Math.max(realActivity, 1.725); stepText = "Muy Activo"; }
+        else if (steps > 10000) { realActivity = Math.max(realActivity, 1.55); stepText = "Activo"; }
+        else if (steps > 7000) { realActivity = Math.max(realActivity, 1.375); stepText = "Moderado"; }
+        else if (steps > 4000) { stepText = "Ligero"; }
 
+        // Protein Factor
+        let proteinFactor = 1.6;
         if (goal === 'maintain') {
-            proteinFactor = 1.4;
-            if (activity > 1.4) proteinFactor = 1.6;
+            proteinFactor = 1.4; if (realActivity > 1.4) proteinFactor = 1.6;
         } else if (goal === 'muscle') {
-            proteinFactor = 2.0;
-            if (activity > 1.6) proteinFactor = 2.2;
+            proteinFactor = 2.0; if (realActivity > 1.6) proteinFactor = 2.2;
         } else if (goal === 'loss') {
-            // Higher protein for satiety and muscle sparing
-            proteinFactor = 2.0;
+            proteinFactor = 2.0; // High for retention
         }
 
-        const recommendedProtein = Math.round(weightKg * proteinFactor);
-        proteinResultDisplay.innerText = recommendedProtein;
+        const recommendedProtein = Math.round(weight * proteinFactor);
 
-        // IMC Calculation
-        const heightM = heightCm / 100;
-        const imc = (weightKg / (heightM * heightM)).toFixed(1);
-        imcResultDisplay.innerText = imc;
-
-        let category = "Normal";
-        if (imc < 18.5) category = "Bajo peso";
-        else if (imc >= 25 && imc < 30) category = "Sobrepeso";
-        else if (imc >= 30) category = "Obesidad";
-
-        imcCategoryDisplay.innerText = `Cat: ${category}`;
+        // Final Outputs
+        document.getElementById('res-protein').innerText = recommendedProtein;
+        document.getElementById('res-steps-analysis').innerText = stepText;
     }
-
-    // Listeners for Protein
-    [weightInput, unitSelect, heightInput, heightUnitSelect, genderSelect, ageInput, goalSelect, activitySelect].forEach(el => {
-        if (el) el.addEventListener('input', calculateData);
-    });
-
-    // Listeners for Carbs
-    [carbSport, carbDuration, carbIntensity, carbAge].forEach(el => {
-        if (el) el.addEventListener('input', calculateCarbs);
-    });
-
-    // Run initial calculations
-    calculateData();
-    calculateCarbs();
 
     // Scroll Reveal Intersection Observer
     const revealCallback = (entries, observer) => {
