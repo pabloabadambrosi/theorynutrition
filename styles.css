@@ -560,7 +560,7 @@ ul {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.8);
+    background: rgba(240, 238, 233, 0.95);
     backdrop-filter: blur(10px);
     z-index: 2000;
     display: none;
@@ -575,24 +575,25 @@ ul {
 }
 
 .calculator-wrapper {
-    background: #0e0e11;
-    border: 1px solid var(--color-border-glass);
+    background: #FFFFFF;
+    border: 1px solid rgba(0, 0, 0, 0.05);
     padding: 3rem;
     border-radius: 30px;
     max-width: 900px;
     width: 100%;
     position: relative;
-    box-shadow: 0 50px 100px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 50px 100px rgba(31, 42, 68, 0.15);
     max-height: 90vh;
     overflow-y: auto;
+    color: #1F2A44;
 }
 
 .close-calc {
     position: absolute;
     top: 1.5rem;
     right: 1.5rem;
-    background: rgba(255, 255, 255, 0.05);
-    color: white;
+    background: rgba(0, 0, 0, 0.05);
+    color: #1F2A44;
     width: 40px;
     height: 40px;
     border-radius: 50%;
@@ -669,9 +670,9 @@ ul {
 .calc-group select {
     width: 100%;
     padding: 1rem;
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid var(--color-border-glass);
-    color: white;
+    background: #F8F9FA;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    color: #1F2A44;
     border-radius: 10px;
     font-size: 1rem;
     font-family: var(--font-body);
@@ -698,28 +699,30 @@ ul {
 }
 
 .protein-box {
-    background: rgba(0, 242, 255, 0.1);
-    border: 1px solid rgba(0, 242, 255, 0.3);
+    background: #F0EEE9;
+    border: 1px solid #1F2A44;
+    color: #1F2A44;
 }
 
 .imc-box {
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: #FFFFFF;
+    border: 1px solid rgba(31, 42, 68, 0.1);
+    color: #1F2A44;
 }
 
 .result-label {
     text-transform: uppercase;
     font-size: 0.8rem;
     letter-spacing: 0.1em;
-    color: var(--color-text-muted);
+    color: rgba(31, 42, 68, 0.6);
 }
 
 .result-value {
     font-size: 3.5rem;
     font-weight: 700;
-    color: var(--color-text-main);
+    color: #1F2A44;
     /* Navy */
-    text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+    text-shadow: none;
 }
 
 /* Science Section */
