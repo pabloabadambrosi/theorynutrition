@@ -1090,6 +1090,104 @@ ul {
     transition-delay: 0.1s;
 }
 
-.reveal-delay-2 {
-    transition-delay: 0.2s;
+transition-delay: 0.2s;
+}
+
+/* Footer & Social */
+.main-footer {
+    padding: 4rem 0;
+    border-top: 1px solid var(--color-border-glass);
+    background: var(--color-bg-dark);
+    margin-top: 5rem;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 2rem;
+}
+
+.footer-logo-img {
+    height: 25px;
+    /* Smaller Logo as requested */
+    width: auto;
+    object-fit: contain;
+    filter: brightness(0.8) contrast(1.2);
+    /* Dark logo for light theme */
+}
+
+.footer-copy {
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+}
+
+.social-links {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.social-link {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.6rem 1.2rem;
+    border-radius: 50px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    transition: var(--transition-smooth);
+    background: var(--color-bg-glass);
+    border: 1px solid var(--color-border-glass);
+    color: var(--color-text-main);
+}
+
+.social-link:hover {
+    transform: scale(1.05);
+    border-color: var(--color-accent);
+}
+
+.social-link.instagram:hover {
+    background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+    color: white;
+    border-color: transparent;
+}
+
+.social-link.whatsapp:hover {
+    background: #25D366;
+    color: white;
+    border-color: transparent;
+}
+
+/* Floating WhatsApp */
+.whatsapp-float {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 60px;
+    height: 60px;
+    background-color: #25d366;
+    color: white;
+    border-radius: 50px;
+    text-align: center;
+    font-size: 30px;
+    box-shadow: 0 10px 25px rgba(37, 211, 102, 0.3);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition-smooth);
+}
+
+.whatsapp-float:hover {
+    transform: scale(1.1) translateY(-5px);
+    background-color: #128c7e;
+    box-shadow: 0 15px 30px rgba(37, 211, 102, 0.4);
+}
+
+@media (max-width: 768px) {
+    .footer-content {
+        flex-direction: column;
+        text-align: center;
+        gap: 1.5rem;
+    }
 }
