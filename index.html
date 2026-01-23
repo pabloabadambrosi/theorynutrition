@@ -190,10 +190,9 @@
                         <h2>Calculadoras <span class="text-highlight">Theory 2026</span></h2>
                         <p>Herramientas avanzadas basadas en ciencia para optimizar tu rendimiento.</p>
 
-                        <!-- Calculator Mode Toggle -->
+                        <!-- Calculator Title -->
                         <div class="calc-mode-tabs">
                             <button class="calc-mode-btn active" data-mode="mode-protein">Proteína & IMC</button>
-                            <button class="calc-mode-btn" data-mode="mode-carbs">Carbohidratos x Hora</button>
                         </div>
 
                         <!-- MODE: WIZARD -->
@@ -350,63 +349,7 @@
 
                         </div>
 
-                        <!-- MODE: CARBOHYDRATES -->
-                        <div id="mode-carbs" class="calc-panel">
-                            <div class="calc-form">
-                                <div class="input-row">
-                                    <div class="calc-group">
-                                        <label for="carb-sport">Deporte</label>
-                                        <select id="carb-sport">
-                                            <option value="endurance">Resistencia (Ciclismo, Carrera)</option>
-                                            <option value="team">Equipo (Fútbol, Crossfit)</option>
-                                            <option value="power">Fuerza (Gimnasio, Pesas)</option>
-                                            <option value="ultra">Ultra-Resistencia (>4h)</option>
-                                        </select>
-                                    </div>
-
-                                    <div class="calc-group">
-                                        <label for="carb-duration">Duración Sesión</label>
-                                        <select id="carb-duration">
-                                            <option value="0.5">Menos de 1 hora</option>
-                                            <option value="1.5">1 a 2 horas</option>
-                                            <option value="2.5">2 a 3 horas</option>
-                                            <option value="4">Más de 3 horas</option>
-                                        </select>
-                                    </div>
-
-                                    <div class="calc-group">
-                                        <label for="carb-intensity">Intensidad</label>
-                                        <select id="carb-intensity">
-                                            <option value="low">Baja (Z1-Z2)</option>
-                                            <option value="med">Moderada (Z3)</option>
-                                            <option value="high">Alta / Umbral (Z4+)</option>
-                                        </select>
-                                    </div>
-
-                                    <div class="calc-group">
-                                        <label for="carb-age">Rango de Edad</label>
-                                        <select id="carb-age">
-                                            <option value="youth">Juvenil (<18)< /option>
-                                            <option value="adult">Adulto (18-50)</option>
-                                            <option value="master">Master (>50)</option>
-                                        </select>
-                                    </div>
-                                </div>
-
-                                <div class="calc-results-grid">
-                                    <div class="calc-result-box carbs-box">
-                                        <div class="result-label">Carga x Hora:</div>
-                                        <div class="result-value"><span id="carb-result">--</span>g</div>
-                                        <div class="result-footer">CHO por hora de ejercicio</div>
-                                    </div>
-                                    <div class="calc-result-box protocol-box">
-                                        <div class="result-label">Protocolo:</div>
-                                        <div class="result-value sub-text"><span id="carb-protocol">--</span></div>
-                                        <div class="result-footer">recomendación científica</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        
                     </div>
                     <button class="close-calc" aria-label="Cerrar calculadora">&times;</button>
                 </div>

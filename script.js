@@ -173,19 +173,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Calculator Mode Switching
-    const modeBtns = document.querySelectorAll('.calc-mode-btn');
-    const calcPanels = document.querySelectorAll('.calc-panel');
-
-    modeBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-            const mode = btn.dataset.mode;
-            modeBtns.forEach(b => b.classList.remove('active'));
-            calcPanels.forEach(p => p.classList.remove('active'));
-            btn.classList.add('active');
-            document.getElementById(mode).classList.add('active');
-        });
-    });
+    
 
     // Protein & IMC Calculator Logic
     // Wizard Logic
