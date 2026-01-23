@@ -192,6 +192,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const unitSelect = document.getElementById('calc-unit');
     const heightInput = document.getElementById('calc-height');
     const heightUnitSelect = document.getElementById('calc-height-unit');
+    const genderSelect = document.getElementById('calc-gender');
+    const ageInput = document.getElementById('calc-age');
+    const goalSelect = document.getElementById('calc-goal');
     const activitySelect = document.getElementById('calc-activity');
     const proteinResultDisplay = document.getElementById('protein-result');
     const imcResultDisplay = document.getElementById('imc-result');
@@ -239,27 +242,54 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function calculateData() {
-        // ... (Existing protein logic)
         let weight = parseFloat(weightInput.value);
         const weightUnit = unitSelect.value;
         let height = parseFloat(heightInput.value);
         const heightUnit = heightUnitSelect.value;
-        const multiplier = parseFloat(activitySelect.value);
+        const gender = genderSelect.value;
+        const age = parseFloat(ageInput.value);
+        const goal = goalSelect.value;
+        const activity = parseFloat(activitySelect.value);
 
-        if (isNaN(weight) || weight <= 0 || isNaN(height) || height <= 0) {
+        if (isNaN(weight) || weight <= 0 || isNaN(height) || height <= 0 || isNaN(age)) {
             proteinResultDisplay.innerText = '--';
             imcResultDisplay.innerText = '--';
             return;
         }
 
+        // Conversions to Metric
         let weightKg = weight;
         if (weightUnit === 'lb') weightKg = weight / 2.20462;
-        let heightM = height;
-        if (heightUnit === 'cm') heightM = height / 100;
+        let heightCm = height;
+        if (heightUnit === 'm') heightCm = height * 100;
 
-        const dailyProtein = Math.round(weightKg * multiplier);
-        proteinResultDisplay.innerText = dailyProtein;
+        // Mifflin-St Jeor BMR Calculation
+        let bmr = (10 * weightKg) + (6.25 * heightCm) - (5 * age);
+        bmr += (gender === 'male') ? 5 : -161;
 
+        // TDEE (Total Daily Energy Expenditure)
+        const tdee = bmr * activity;
+
+        // Protein Calculation based on Goal (g/kg approach for accuracy)
+        // Maintain: 1.4-1.6g/kg, Muscle: 1.8-2.2g/kg, Loss: 1.8-2.4g/kg (high protein preserves lean mass in deficit)
+        let proteinFactor = 1.6; // default maintain
+
+        if (goal === 'maintain') {
+            proteinFactor = 1.4;
+            if (activity > 1.4) proteinFactor = 1.6;
+        } else if (goal === 'muscle') {
+            proteinFactor = 2.0;
+            if (activity > 1.6) proteinFactor = 2.2;
+        } else if (goal === 'loss') {
+            // Higher protein for satiety and muscle sparing
+            proteinFactor = 2.0;
+        }
+
+        const recommendedProtein = Math.round(weightKg * proteinFactor);
+        proteinResultDisplay.innerText = recommendedProtein;
+
+        // IMC Calculation
+        const heightM = heightCm / 100;
         const imc = (weightKg / (heightM * heightM)).toFixed(1);
         imcResultDisplay.innerText = imc;
 
@@ -272,7 +302,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Listeners for Protein
-    [weightInput, unitSelect, heightInput, heightUnitSelect, activitySelect].forEach(el => {
+    [weightInput, unitSelect, heightInput, heightUnitSelect, genderSelect, ageInput, goalSelect, activitySelect].forEach(el => {
         if (el) el.addEventListener('input', calculateData);
     });
 
