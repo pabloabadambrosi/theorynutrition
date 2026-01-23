@@ -1367,10 +1367,10 @@ transition-delay: 0.2s;
 /* Form Styles Refinement */
 .clean-form {
     background: var(--color-white);
-    padding: 3rem;
-    border-radius: 30px;
+    padding: 2.5rem;
+    border-radius: 24px;
     border: 1px solid rgba(0, 0, 0, 0.05);
-    box-shadow: 0 30px 60px rgba(31, 42, 68, 0.1);
+    box-shadow: 0 20px 40px rgba(31, 42, 68, 0.08);
 }
 
 .form-group {
@@ -1389,10 +1389,10 @@ transition-delay: 0.2s;
 
 .form-group input {
     width: 100%;
-    padding: 1.2rem;
+    padding: 1rem;
     background: var(--color-cloud);
     border: 1px solid transparent;
-    border-radius: 12px;
+    border-radius: 10px;
     font-size: 1rem;
     color: var(--color-navy);
     transition: var(--transition-smooth);
@@ -1423,14 +1423,14 @@ transition-delay: 0.2s;
 .flavor-options {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 1.5rem;
+    gap: 1rem;
 }
 
 .flavor-option {
     background: var(--color-cloud);
     border: 2px solid transparent;
-    border-radius: 16px;
-    padding: 1.5rem;
+    border-radius: 14px;
+    padding: 1rem;
     text-align: center;
     cursor: pointer;
     transition: var(--transition-smooth);
@@ -1449,8 +1449,8 @@ transition-delay: 0.2s;
 }
 
 .flavor-option img {
-    width: 60px;
-    height: 60px;
+    width: 50px;
+    height: 50px;
     object-fit: contain;
     margin-bottom: 0.5rem;
     mix-blend-mode: multiply;
@@ -1459,7 +1459,7 @@ transition-delay: 0.2s;
 .flavor-option span {
     display: block;
     font-weight: 600;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     color: var(--color-navy);
 }
 
