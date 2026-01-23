@@ -7,11 +7,9 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('scroll', () => {
         // Shadow/Padding effect
         if (window.scrollY > 50) {
-            navbar.style.boxShadow = '0 5px 20px rgba(0,0,0,0.05)';
-            navbar.style.padding = '1rem 0';
+            navbar.classList.add('scrolled');
         } else {
-            navbar.style.boxShadow = 'none';
-            navbar.style.padding = '1.5rem 0';
+            navbar.classList.remove('scrolled');
         }
 
         // Scroll Progress
