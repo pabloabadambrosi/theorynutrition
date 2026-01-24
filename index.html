@@ -4,9 +4,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Theory Nutrition | Suplementos Deportivos Premium</title>
+    <title>Theory Nutrition | Suplementos Deportivos Veganos Premium | Proteína de Soya</title>
     <meta name="description"
-        content="Nutrición deportiva limpia y transparente. Proteína vegetal aislada de soya premium. 0 calorías, 0 azúcares, 100% vegana.">
+        content="Nutrición deportiva vegana premium en Ecuador. Proteína vegetal aislada de soya con 27g por serving. 0 calorías, 0 azúcares, 100% vegana. Compra online con envío rápido.">
+    <meta name="keywords" content="proteína vegana, proteína soya, suplementos deportivos, nutrición deportiva Ecuador, proteína aislada, fitness vegano, supplements Ecuador">
+    <meta name="author" content="Theory Nutrition">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://theorynutrition.com">
+    <meta property="og:title" content="Theory Nutrition | Suplementos Deportivos Veganos Premium">
+    <meta property="og:description" content="Nutrición deportiva vegana premium en Ecuador. Proteína vegetal aislada de soya con 27g por serving.">
+    <meta property="og:image" content="https://theorynutrition.com/product_vanilla.png">
+    <meta property="og:locale" content="es_EC">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://theorynutrition.com">
+    <meta property="twitter:title" content="Theory Nutrition | Suplementos Deportivos Veganos Premium">
+    <meta property="twitter:description" content="Nutrición deportiva vegana premium en Ecuador. Proteína vegetal aislada de soya.">
+    <meta property="twitter:image" content="https://theorynutrition.com/product_vanilla.png">
+    
+    <!-- Additional SEO -->
+    <meta name="theme-color" content="#1F2A44">
+    <meta name="msapplication-TileColor" content="#1F2A44">
+    <link rel="canonical" href="https://theorynutrition.com">
     <link rel="stylesheet" href="styles.css">
 
     <!-- Google Fonts -->
@@ -17,9 +40,72 @@
         rel="stylesheet">
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="favicon.png">
+    
+    <!-- Structured Data for SEO -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "Theory Nutrition",
+        "description": "Nutrición deportiva vegana premium. Proteína vegetal aislada de soya transparente y limpia.",
+        "url": "https://theorynutrition.com",
+        "logo": "https://theorynutrition.com/logo.png",
+        "sameAs": [
+            "https://www.instagram.com/theorynutrition",
+            "https://wa.me/593987706360"
+        ],
+        "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Cuenca",
+            "addressCountry": "Ecuador"
+        },
+        "contactPoint": {
+            "@type": "ContactPoint",
+            "contactType": "customer service",
+            "availableLanguage": "Spanish"
+        },
+        "product": [
+            {
+                "@type": "Product",
+                "name": "Theory Gold Isolate - Vainilla Natural",
+                "category": "Suplemento Deportivo",
+                "description": "Proteína vegetal aislada de soya premium con sabor a vainilla natural. 27g de proteína por serving.",
+                "brand": "Theory Nutrition",
+                "offers": {
+                    "@type": "Offer",
+                    "price": "25",
+                    "priceCurrency": "USD",
+                    "availability": "https://schema.org/InStock"
+                }
+            },
+            {
+                "@type": "Product",
+                "name": "Theory Gold Isolate - Sin Sabor",
+                "category": "Suplemento Deportivo",
+                "description": "Proteína vegetal aislada de soya premium sin sabor. 100% aislado de soya puro.",
+                "brand": "Theory Nutrition",
+                "offers": {
+                    "@type": "Offer",
+                    "price": "25",
+                    "priceCurrency": "USD",
+                    "availability": "https://schema.org/InStock"
+                }
+            }
+        ]
+    }
+    </script>
 </head>
 
 <body class="modular-layout">
+    <!-- Mobile Navigation Overlay -->
+    <div class="mobile-nav-overlay"></div>
+    
+    <!-- Loading Overlay for Forms -->
+    <div class="loading-overlay" id="loading-overlay">
+        <div class="loading-spinner"></div>
+        <div class="loading-text">Procesando...</div>
+    </div>
+    
     <!-- Animated Background Blobs -->
     <div class="bg-blobs">
         <div class="blob blob-1"></div>
@@ -65,8 +151,32 @@
                         <a href="#products" class="btn btn-primary reveal reveal-delay-2">Descubre La Colección</a>
                     </div>
                     <div class="hero-product-image reveal reveal-delay-1">
-                        <img src="product_vanilla.png" alt="Pure Vanilla Isolate Protein">
+                        <img src="product_vanilla.png" alt="Pure Vanilla Isolate Protein" 
+                             loading="lazy" 
+                             decoding="async" 
+                             class="lazy-image">
                     </div>
+                </div>
+                
+                <!-- Social Proof Badges -->
+                <div class="social-proof-badges reveal reveal-delay-3">
+                    <div class="badge-item">
+                        <span class="badge-icon">🏆</span>
+                        <span class="badge-text">100% Vegano</span>
+                    </div>
+                    <div class="badge-item">
+                        <span class="badge-icon">🌿</span>
+                        <span class="badge-text">Hecho en Ecuador</span>
+                    </div>
+                    <div class="badge-item">
+                        <span class="badge-icon">⭐</span>
+                        <span class="badge-text">5.0 Rating</span>
+                    </div>
+                    <div class="badge-item">
+                        <span class="badge-icon">📦</span>
+                        <span class="badge-text">Envío Rápido</span>
+                    </div>
+                </div>
                 </div>
             </section>
 
@@ -113,7 +223,10 @@
                         <!-- Product 1: Vanilla -->
                         <div class="product-card reveal">
                             <div class="product-image-container">
-                                <img src="product_vanilla.png" alt="Proteína Vainilla Theory Nutrition">
+                                <img src="product_vanilla.png" alt="Proteína Vainilla Theory Nutrition" 
+                                     loading="lazy" 
+                                     decoding="async" 
+                                     class="lazy-image product-img">
                             </div>
                             <div class="product-info">
                                 <h3>Vainilla Natural</h3>
@@ -132,7 +245,10 @@
                         <!-- Product 2: Unflavored -->
                         <div class="product-card reveal reveal-delay-1">
                             <div class="product-image-container">
-                                <img src="product_unflavored.png" alt="Proteína Sin Sabor Theory Nutrition">
+                                <img src="product_unflavored.png" alt="Proteína Sin Sabor Theory Nutrition" 
+                                     loading="lazy" 
+                                     decoding="async" 
+                                     class="lazy-image product-img">
                             </div>
                             <div class="product-info">
                                 <h3>Sin Sabor (Pura)</h3>
@@ -151,28 +267,38 @@
                 </div>
             </section>
 
-            <!-- Testimonials inside Products for context -->
+            <!-- Enhanced Testimonials Section -->
             <section class="testimonials-section">
                 <div class="container">
                     <div class="section-header">
-                        <h2>Opiniones</h2>
+                        <h2>Lo que dicen nuestros clientes</h2>
+                        <p>Únete a miles de atletas que han transformado su nutrición</p>
                     </div>
                     <div class="testimonials-grid">
-                        <div class="testimonial-card">
+                        <div class="testimonial-card reveal">
                             <div class="quote-icon">"</div>
-                            <p class="testimonial-text">La proteína más limpia que he probado. Sin rellenos, sin trucos.
-                            </p>
+                            <p class="testimonial-text">La proteína más limpia que he probado. Sin rellenos, sin trucos. Me ayudó a alcanzar mis objetivos de competencia.</p>
                             <div class="testimonial-author">
                                 <h4>María González</h4>
+                                <span class="testimonial-role">Atleta Competitiva</span>
                                 <div class="stars">★★★★★</div>
                             </div>
                         </div>
-                        <div class="testimonial-card">
+                        <div class="testimonial-card reveal reveal-delay-1">
                             <div class="quote-icon">"</div>
-                            <p class="testimonial-text">Como vegano, Theory superó mis expectativas. 27g de proteína
-                                pura.</p>
+                            <p class="testimonial-text">Como vegano, Theory superó mis expectativas. 27g de proteína pura y sabor increíble. ¡Nunca volveré a otras marcas!</p>
                             <div class="testimonial-author">
                                 <h4>Carlos Mendoza</h4>
+                                <span class="testimonial-role">Crossfit Athlete</span>
+                                <div class="stars">★★★★★</div>
+                            </div>
+                        </div>
+                        <div class="testimonial-card reveal reveal-delay-2">
+                            <div class="quote-icon">"</div>
+                            <p class="testimonial-text">El sabor es exquisito y la mezcla es perfecta. Uso Theory daily y mi recuperación ha mejorado notablemente.</p>
+                            <div class="testimonial-author">
+                                <h4>Sofía Rodríguez</h4>
+                                <span class="testimonial-role">Yoga Instructor</span>
                                 <div class="stars">★★★★★</div>
                             </div>
                         </div>

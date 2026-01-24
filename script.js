@@ -19,13 +19,30 @@ document.addEventListener('DOMContentLoaded', () => {
         if (scrollBar) scrollBar.style.width = scrolled + "%";
     });
 
-    // Mobile Hamburger Menu
+    // Enhanced Mobile Hamburger Menu
     const hamburger = document.querySelector('.hamburger');
     const navLinks = document.querySelector('.nav-links');
+    const mobileOverlay = document.querySelector('.mobile-nav-overlay');
 
     hamburger.addEventListener('click', () => {
         hamburger.classList.toggle('active');
         navLinks.classList.toggle('active');
+        mobileOverlay.classList.toggle('active');
+        
+        // Prevent body scroll when menu is open
+        if (navLinks.classList.contains('active')) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = '';
+        }
+    });
+
+    // Close menu when clicking overlay
+    mobileOverlay.addEventListener('click', () => {
+        hamburger.classList.remove('active');
+        navLinks.classList.remove('active');
+        mobileOverlay.classList.remove('active');
+        document.body.style.overflow = '';
     });
 
     // Close menu when clicking a link
@@ -33,7 +50,19 @@ document.addEventListener('DOMContentLoaded', () => {
         link.addEventListener('click', () => {
             hamburger.classList.remove('active');
             navLinks.classList.remove('active');
+            mobileOverlay.classList.remove('active');
+            document.body.style.overflow = '';
         });
+    });
+
+    // Close menu on Escape key
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && navLinks.classList.contains('active')) {
+            hamburger.classList.remove('active');
+            navLinks.classList.remove('active');
+            mobileOverlay.classList.remove('active');
+            document.body.style.overflow = '';
+        }
     });
 
     // View Switcher System
@@ -753,29 +782,159 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Consolidated Buy Form Redirection
+    // Enhanced Error Handling and Recovery System
+    class ErrorHandler {
+        static show(message, type = 'error', duration = 5000) {
+            const notification = document.createElement('div');
+            notification.className = `notification notification-${type}`;
+            notification.innerHTML = `
+                <div class="notification-content">
+                    <span class="notification-icon">${type === 'error' ? '⚠️' : type === 'success' ? '✅' : 'ℹ️'}</span>
+                    <span class="notification-message">${message}</span>
+                    <button class="notification-close">&times;</button>
+                </div>
+            `;
+            
+            document.body.appendChild(notification);
+            
+            // Animate in
+            setTimeout(() => notification.classList.add('active'), 10);
+            
+            // Auto remove
+            setTimeout(() => this.remove(notification), duration);
+            
+            // Manual close
+            notification.querySelector('.notification-close').addEventListener('click', () => {
+                this.remove(notification);
+            });
+        }
+        
+        static remove(notification) {
+            notification.classList.remove('active');
+            setTimeout(() => notification.remove(), 300);
+        }
+        
+        static async handleAsync(promise, errorMessage = 'Ocurrió un error inesperado') {
+            try {
+                return await promise;
+            } catch (error) {
+                console.error('Async error:', error);
+                this.show(errorMessage, 'error');
+                throw error;
+            }
+        }
+    }
+
+    // Consolidated Buy Form Redirection with Enhanced Error Handling
     const buyForm = document.getElementById('buy-form');
     if (buyForm) {
-        buyForm.addEventListener('submit', function (e) {
+        buyForm.addEventListener('submit', async function (e) {
             e.preventDefault();
-            const name = document.getElementById('name').value;
-            const flavor = flavorInput.value;
-            const quantity = document.getElementById('quantity').value;
+            
+            // Add loading state
+            const submitBtn = this.querySelector('button[type="submit"]');
+            const originalText = submitBtn.innerHTML;
+            submitBtn.classList.add('form-loading');
+            submitBtn.disabled = true;
+            
+            try {
+                const name = document.getElementById('name').value;
+                const flavor = flavorInput.value;
+                const quantity = document.getElementById('quantity').value;
 
-            if (!flavor) {
-                alert('Por favor selecciona un sabor');
-                return;
+                // Enhanced validation
+                if (!name.trim()) {
+                    throw new Error('Por favor ingresa tu nombre');
+                }
+                
+                if (!flavor) {
+                    throw new Error('Por favor selecciona un sabor');
+                }
+                
+                if (!quantity || quantity < 1) {
+                    throw new Error('Por favor ingresa una cantidad válida');
+                }
+
+                const phone = '593987706360';
+                const message = `Hola Theory! Mi nombre es ${name}. Me gustaría pedir ${quantity} unidad(es) de Theory Gold Isolate sabor ${flavor}.`;
+                const whatsappUrl = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+                
+                // Simulate async operation
+                await new Promise(resolve => setTimeout(resolve, 500));
+                
+                window.open(whatsappUrl, '_blank');
+                
+                // Show success message
+                ErrorHandler.show('¡Pedido redirigido a WhatsApp correctamente!', 'success', 3000);
+                
+            } catch (error) {
+                ErrorHandler.show(error.message || 'Ocurrió un error al procesar tu pedido', 'error');
+            } finally {
+                // Remove loading state
+                submitBtn.classList.remove('form-loading');
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = originalText;
             }
-
-            const phone = '593987706360';
-            const message = `Hola Theory! Mi nombre es ${name}. Me gustaría pedir ${quantity} unidad(es) de Theory Gold Isolate sabor ${flavor}.`;
-            const whatsappUrl = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
-            window.open(whatsappUrl, '_blank');
         });
     }
 
-    // Magnetic Buttons Interaction
-    const magneticElements = document.querySelectorAll('.btn, .btn-nav, .social-link, .nav-links a, .whatsapp-float');
+    // Enhanced Lazy Loading System
+    class LazyImageLoader {
+        constructor() {
+            this.images = document.querySelectorAll('img.lazy-image');
+            this.imageObserver = null;
+            this.init();
+        }
+
+        init() {
+            if ('IntersectionObserver' in window) {
+                this.imageObserver = new IntersectionObserver((entries, observer) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            this.loadImage(entry.target);
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                }, {
+                    rootMargin: '50px 0px',
+                    threshold: 0.1
+                });
+
+                this.images.forEach(img => this.imageObserver.observe(img));
+            } else {
+                // Fallback for older browsers
+                this.images.forEach(img => this.loadImage(img));
+            }
+        }
+
+        loadImage(img) {
+            // Add loading effect immediately
+            img.style.opacity = '0';
+            
+            // Create new image to preload
+            const tempImg = new Image();
+            tempImg.onload = () => {
+                img.onload = () => {
+                    img.classList.add('loaded');
+                    img.style.opacity = '1';
+                };
+                img.src = tempImg.src;
+            };
+            
+            tempImg.onerror = () => {
+                img.style.opacity = '1';
+                img.classList.add('error');
+            };
+            
+            tempImg.src = img.src;
+        }
+    }
+
+    // Initialize lazy loading
+    const lazyLoader = new LazyImageLoader();
+
+    // Enhanced Magnetic Buttons Interaction
+    const magneticElements = document.querySelectorAll('.btn, .btn-nav, .social-link, .nav-links a:not(.btn-nav), .whatsapp-float');
 
     magneticElements.forEach(el => {
         el.addEventListener('mousemove', (e) => {
@@ -789,5 +948,17 @@ document.addEventListener('DOMContentLoaded', () => {
         el.addEventListener('mouseleave', () => {
             el.style.transform = '';
         });
+    });
+
+    // Add keyboard navigation enhancement
+    document.addEventListener('keydown', (e) => {
+        // Tab navigation enhancement
+        if (e.key === 'Tab') {
+            document.body.classList.add('keyboard-nav');
+        }
+    });
+
+    document.addEventListener('mousedown', () => {
+        document.body.classList.remove('keyboard-nav');
     });
 });
