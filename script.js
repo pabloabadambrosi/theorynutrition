@@ -175,85 +175,365 @@ document.addEventListener('DOMContentLoaded', () => {
 
     
 
+    // Enhanced Calculator State Management
+    class CalculatorController {
+        constructor() {
+            this.state = {
+                user: {
+                    name: '',
+                    gender: '',
+                    age: 0,
+                    weight: 0,
+                    height: 0,
+                    steps: 0,
+                    activity: 0,
+                    goal: ''
+                },
+                ui: {
+                    currentStep: 1,
+                    isCalculating: false,
+                    showPreview: true,
+                    animations: true
+                },
+                results: {
+                    protein: 0,
+                    bmr: 0,
+                    activityLevel: '',
+                    recommendations: []
+                }
+            };
+            this.initializeEventListeners();
+            this.updateProgress(1);
+            this.updatePreview();
+        }
+
+        updateProgress(step) {
+            this.state.ui.currentStep = step;
+            
+            // Update progress bar
+            const progressFill = document.querySelector('.progress-fill');
+            const progressSteps = document.querySelectorAll('.progress-step');
+            const progressPercentage = (step / 4) * 100;
+            
+            if (progressFill) {
+                progressFill.style.width = `${progressPercentage}%`;
+            }
+            
+            // Update step indicators
+            progressSteps.forEach((stepEl, index) => {
+                const stepNum = index + 1;
+                stepEl.classList.remove('active', 'completed');
+                
+                if (stepNum < step) {
+                    stepEl.classList.add('completed');
+                } else if (stepNum === step) {
+                    stepEl.classList.add('active');
+                }
+            });
+
+            // Update preview
+            this.updatePreview();
+        }
+
+        updatePreview() {
+            const previewName = document.getElementById('preview-name');
+            const previewProgress = document.getElementById('preview-progress');
+            const previewWeight = document.getElementById('preview-weight');
+            const previewGoal = document.getElementById('preview-goal');
+            const proteinValue = document.querySelector('.protein-value');
+
+            // Update name
+            if (previewName && this.state.user.name) {
+                previewName.textContent = this.state.user.name;
+            }
+
+            // Update progress
+            if (previewProgress) {
+                const progressPercentage = (this.state.ui.currentStep / 4) * 100;
+                previewProgress.textContent = `${Math.round(progressPercentage)}%`;
+            }
+
+            // Update weight
+            if (previewWeight && this.state.user.weight > 0) {
+                previewWeight.textContent = `${this.state.user.weight} kg`;
+            }
+
+            // Update goal
+            if (previewGoal && this.state.user.goal) {
+                const goalLabels = {
+                    'loss': 'Perder Peso',
+                    'maintain': 'Mantener',
+                    'muscle': 'Ganar Músculo'
+                };
+                previewGoal.textContent = goalLabels[this.state.user.goal] || '--';
+            }
+
+            // Update estimated protein
+            if (proteinValue && this.state.user.weight > 0 && this.state.user.goal) {
+                const estimatedProtein = this.calculateEstimatedProtein(
+                    this.state.user.weight, 
+                    this.state.user.goal
+                );
+                proteinValue.textContent = estimatedProtein;
+            }
+        }
+
+        calculateEstimatedProtein(weight, goal) {
+            const factors = {
+                'loss': 2.0,
+                'maintain': 1.6,
+                'muscle': 2.2
+            };
+            return Math.round(weight * (factors[goal] || 1.6));
+        }
+
+        initializeEventListeners() {
+            // Real-time input listeners
+            const nameInput = document.getElementById('wiz-name');
+            if (nameInput) {
+                nameInput.addEventListener('input', (e) => {
+                    this.state.user.name = e.target.value;
+                    this.updatePreview();
+                });
+            }
+
+            const ageInput = document.getElementById('wiz-age');
+            if (ageInput) {
+                ageInput.addEventListener('input', (e) => {
+                    this.state.user.age = parseInt(e.target.value) || 0;
+                    this.updatePreview();
+                });
+            }
+
+            const weightInput = document.getElementById('wiz-weight');
+            if (weightInput) {
+                weightInput.addEventListener('input', (e) => {
+                    this.state.user.weight = parseFloat(e.target.value) || 0;
+                    this.updatePreview();
+                });
+            }
+
+            const heightInput = document.getElementById('wiz-height');
+            if (heightInput) {
+                heightInput.addEventListener('input', (e) => {
+                    this.state.user.height = parseFloat(e.target.value) || 0;
+                    this.updatePreview();
+                });
+            }
+
+            const stepsInput = document.getElementById('wiz-steps');
+            if (stepsInput) {
+                stepsInput.addEventListener('input', (e) => {
+                    this.state.user.steps = parseInt(e.target.value) || 0;
+                    this.updatePreview();
+                });
+            }
+
+            const activityInput = document.getElementById('wiz-activity');
+            if (activityInput) {
+                activityInput.addEventListener('change', (e) => {
+                    this.state.user.activity = parseFloat(e.target.value) || 1.2;
+                    this.updatePreview();
+                });
+            }
+        }
+
+        updateUserData(field, value) {
+            this.state.user[field] = value;
+            this.updatePreview();
+        }
+    }
+
+    // Initialize calculator controller
+    const calculator = new CalculatorController();
+
     // Protein & IMC Calculator Logic
     // Wizard Logic
     const steps = document.querySelectorAll('.wizard-step');
     const totalSteps = steps.length;
     let currentStep = 1;
 
-    // Next Buttons
+    // Next Buttons - Enhanced with Progress System
     document.querySelectorAll('.next-step').forEach(btn => {
         btn.addEventListener('click', () => {
             const stepEl = document.querySelector(`.wizard-step[data-step="${currentStep}"]`);
 
-            // Basic Validation
+            // Enhanced Validation
             if (currentStep === 1) {
                 const name = document.getElementById('wiz-name').value;
-                if (!name.trim()) { alert('Por favor ingresa tu nombre'); return; }
+                if (!name.trim()) { 
+                    showValidationError('Por favor ingresa tu nombre'); 
+                    return; 
+                }
                 document.getElementById('res-name').innerText = name;
+                calculator.updateUserData('name', name);
             }
             if (currentStep === 2) {
                 const gender = document.getElementById('wiz-gender').value;
                 const age = document.getElementById('wiz-age').value;
-                if (!gender || !age) { alert('Completa los campos requeridos'); return; }
+                if (!gender || !age) { 
+                    showValidationError('Completa los campos requeridos'); 
+                    return; 
+                }
+                calculator.updateUserData('gender', gender);
+                calculator.updateUserData('age', parseInt(age));
+            }
+            if (currentStep === 3) {
+                const steps = document.getElementById('wiz-steps').value;
+                const activity = document.getElementById('wiz-activity').value;
+                if (!steps || !activity) { 
+                    showValidationError('Completa tu nivel de actividad'); 
+                    return; 
+                }
+                calculator.updateUserData('steps', parseInt(steps));
+                calculator.updateUserData('activity', parseFloat(activity));
             }
 
             if (currentStep < totalSteps) {
-                stepEl.classList.remove('active');
-                currentStep++;
-                const nextEl = document.querySelector(`.wizard-step[data-step="${currentStep}"]`);
-                nextEl.classList.add('active');
+                // Add exit animation to current step
+                stepEl.classList.add('step-exit');
+                
+                setTimeout(() => {
+                    stepEl.classList.remove('active', 'step-exit');
+                    currentStep++;
+                    const nextEl = document.querySelector(`.wizard-step[data-step="${currentStep}"]`);
+                    nextEl.classList.add('active');
+                    
+                    // Update progress using calculator controller
+                    calculator.updateProgress(currentStep);
+                }, 400); // Wait for exit animation to complete
             }
         });
     });
 
-    // Prev Buttons
+    // Prev Buttons - Enhanced with Progress System
     document.querySelectorAll('.prev-step').forEach(btn => {
         btn.addEventListener('click', () => {
-            if (currentStep > 1) {
-                document.querySelector(`.wizard-step[data-step="${currentStep}"]`).classList.remove('active');
+        if (currentStep > 1) {
+            const currentStepEl = document.querySelector(`.wizard-step[data-step="${currentStep}"]`);
+            
+            // Add exit animation to current step
+            currentStepEl.classList.add('step-exit');
+            
+            setTimeout(() => {
+                currentStepEl.classList.remove('active', 'step-exit');
                 currentStep--;
-                document.querySelector(`.wizard-step[data-step="${currentStep}"]`).classList.add('active');
-            }
+                const prevEl = document.querySelector(`.wizard-step[data-step="${currentStep}"]`);
+                prevEl.classList.add('active');
+                
+                // Update progress using calculator controller
+                calculator.updateProgress(currentStep);
+            }, 400); // Wait for exit animation to complete
+        }
         });
     });
 
-    // Card Selection
+    // Enhanced Validation Error
+    function showValidationError(message) {
+        // Create a more user-friendly error message instead of alert
+        const errorDiv = document.createElement('div');
+        errorDiv.className = 'validation-error';
+        errorDiv.textContent = message;
+        errorDiv.style.cssText = `
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--color-protein-warning);
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            z-index: 10000;
+            animation: slideInRight 0.3s ease;
+        `;
+        
+        document.body.appendChild(errorDiv);
+        
+        setTimeout(() => {
+            errorDiv.style.animation = 'slideOutRight 0.3s ease';
+            setTimeout(() => errorDiv.remove(), 300);
+        }, 3000);
+    }
+
+    // Add CSS for validation animations
+    const style = document.createElement('style');
+    style.textContent = `
+        @keyframes slideInRight {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        @keyframes slideOutRight {
+            from { transform: translateX(0); opacity: 1; }
+            to { transform: translateX(100%); opacity: 0; }
+        }
+    `;
+    document.head.appendChild(style);
+
+    // Enhanced Card Selection with State Management
     document.querySelectorAll('.step-card-option').forEach(card => {
         card.addEventListener('click', () => {
             const group = card.dataset.group;
-            // Deselect siblings
-            document.querySelectorAll(`.step-card-option[data-group="${group}"]`).forEach(c => c.classList.remove('selected'));
-            // Select this
+            const value = card.dataset.value;
+            
+            // Enhanced visual feedback
+            card.style.transform = 'scale(0.95)';
+            setTimeout(() => {
+                card.style.transform = '';
+            }, 150);
+            
+            // Deselect siblings with animation
+            document.querySelectorAll(`.step-card-option[data-group="${group}"]`).forEach(c => {
+                if (c !== card) {
+                    c.classList.remove('selected');
+                }
+            });
+            
+            // Select this card with animation
             card.classList.add('selected');
-            // Update hidden input
-            if (group === 'gender') document.getElementById('wiz-gender').value = card.dataset.value;
-            if (group === 'goal') document.getElementById('wiz-goal').value = card.dataset.value;
+            
+            // Update hidden input and calculator state
+            if (group === 'gender') {
+                document.getElementById('wiz-gender').value = value;
+                calculator.updateUserData('gender', value);
+            }
+            if (group === 'goal') {
+                document.getElementById('wiz-goal').value = value;
+                calculator.updateUserData('goal', value);
+            }
         });
     });
 
-    // Final Calculate
+    // Enhanced Final Calculate
     document.getElementById('wiz-calculate').addEventListener('click', () => {
         const weight = parseFloat(document.getElementById('wiz-weight').value);
         const height = parseFloat(document.getElementById('wiz-height').value);
         const goal = document.getElementById('wiz-goal').value;
 
         if (!weight || !height || !goal) {
-            alert('Por favor completa todos los datos'); return;
+            showValidationError('Por favor completa todos los datos'); 
+            return;
         }
 
-        // Hide Step 4
-        document.querySelector(`.wizard-step[data-step="4"]`).classList.remove('active');
+        // Update calculator state
+        calculator.updateUserData('weight', weight);
+        calculator.updateUserData('height', height);
 
-        // Show Loading
+        // Show enhanced loading state
+        document.querySelector(`.wizard-step[data-step="4"]`).classList.remove('active');
+        calculator.updateProgress(5); // Complete state
+
         const loadingScreen = document.getElementById('calc-loading');
         loadingScreen.style.display = 'flex';
 
         setTimeout(() => {
             loadingScreen.style.display = 'none';
             calculateWizardResults();
-            document.getElementById('wiz-results').style.display = 'block';
-        }, 3000); // 3 seconds spin
+            const resultsEl = document.getElementById('wiz-results');
+            resultsEl.style.display = 'block';
+            setTimeout(() => {
+                resultsEl.classList.add('active');
+            }, 50); // Small delay to trigger animation
+        }, 2000); // Reduced to 2 seconds for better UX
     });
 
     document.getElementById('wiz-reset').addEventListener('click', () => {
@@ -261,54 +541,170 @@ document.addEventListener('DOMContentLoaded', () => {
         currentStep = 1;
         document.querySelector(`.wizard-step[data-step="1"]`).classList.add('active');
 
-        // Reset Inputs
-        document.getElementById('wiz-name').value = "";
-        document.getElementById('wiz-weight').value = "";
-        document.getElementById('wiz-height').value = "";
-        document.getElementById('wiz-age').value = "";
-        document.getElementById('wiz-steps').value = "";
-        document.querySelectorAll('.step-card-option').forEach(c => c.classList.remove('selected'));
+        // Reset calculator state
+        calculator.state.user = {
+            name: '',
+            gender: '',
+            age: 0,
+            weight: 0,
+            height: 0,
+            steps: 0,
+            activity: 0,
+            goal: ''
+        };
+
+        // Reset UI state
+        calculator.updateProgress(1);
+
+        // Reset Inputs with animation
+        const inputs = ['wiz-name', 'wiz-weight', 'wiz-height', 'wiz-age', 'wiz-steps'];
+        inputs.forEach(id => {
+            const input = document.getElementById(id);
+            if (input) {
+                input.value = "";
+                input.style.animation = 'fadeOut 0.3s ease';
+                setTimeout(() => {
+                    input.style.animation = '';
+                }, 300);
+            }
+        });
+
+        // Reset card selections
+        document.querySelectorAll('.step-card-option').forEach(c => {
+            c.classList.remove('selected');
+            c.style.animation = 'fadeOut 0.3s ease';
+            setTimeout(() => {
+                c.style.animation = '';
+            }, 300);
+        });
+
+        // Reset preview
+        document.getElementById('preview-name').textContent = '--';
+        document.getElementById('preview-progress').textContent = '25%';
+        document.getElementById('preview-weight').textContent = '--';
+        document.getElementById('preview-goal').textContent = '--';
+        document.querySelector('.protein-value').textContent = '--';
     });
 
+    // Add fadeOut animation
+    const fadeOutStyle = document.createElement('style');
+    fadeOutStyle.textContent = `
+        @keyframes fadeOut {
+            0% { opacity: 1; }
+            50% { opacity: 0.3; }
+            100% { opacity: 1; }
+        }
+    `;
+    document.head.appendChild(fadeOutStyle);
+
     function calculateWizardResults() {
-        // Collect Data
-        const gender = document.getElementById('wiz-gender').value;
-        const age = parseFloat(document.getElementById('wiz-age').value);
-        const weight = parseFloat(document.getElementById('wiz-weight').value);
-        const height = parseFloat(document.getElementById('wiz-height').value);
-        const steps = parseFloat(document.getElementById('wiz-steps').value) || 0;
-        const activityVal = parseFloat(document.getElementById('wiz-activity').value);
-        const goal = document.getElementById('wiz-goal').value;
+        // Use calculator state for consistency
+        const { user } = calculator.state;
 
-        // BMR (Mifflin-St Jeor)
-        let bmr = (10 * weight) + (6.25 * height) - (5 * age);
-        bmr += (gender === 'male') ? 5 : -161;
+        // BMR (Mifflin-St Jeor) with enhanced precision
+        let bmr = (10 * user.weight) + (6.25 * user.height) - (5 * user.age);
+        bmr += (user.gender === 'male') ? 5 : -161;
 
-        // Activity Multiplier Logic (incorporating steps)
-        // If steps are high, we can boost the activity multiplier slightly or confirm it
-        let realActivity = activityVal;
+        // Enhanced Activity Multiplier Logic
+        let realActivity = user.activity;
         let stepText = "Sedentario";
+        let activityLevel = 1;
 
-        if (steps > 12000) { realActivity = Math.max(realActivity, 1.725); stepText = "Muy Activo"; }
-        else if (steps > 10000) { realActivity = Math.max(realActivity, 1.55); stepText = "Activo"; }
-        else if (steps > 7000) { realActivity = Math.max(realActivity, 1.375); stepText = "Moderado"; }
-        else if (steps > 4000) { stepText = "Ligero"; }
+        if (user.steps > 12000) { 
+            realActivity = Math.max(realActivity, 1.725); 
+            stepText = "Muy Activo"; 
+            activityLevel = 5;
+        } else if (user.steps > 10000) { 
+            realActivity = Math.max(realActivity, 1.55); 
+            stepText = "Activo"; 
+            activityLevel = 4;
+        } else if (user.steps > 7000) { 
+            realActivity = Math.max(realActivity, 1.375); 
+            stepText = "Moderado"; 
+            activityLevel = 3;
+        } else if (user.steps > 4000) { 
+            stepText = "Ligero"; 
+            activityLevel = 2;
+        }
 
-        // Protein Factor
+        // Enhanced Protein Factor with scientific backing
         let proteinFactor = 1.6;
-        if (goal === 'maintain') {
-            proteinFactor = 1.4; if (realActivity > 1.4) proteinFactor = 1.6;
-        } else if (goal === 'muscle') {
-            proteinFactor = 2.0; if (realActivity > 1.6) proteinFactor = 2.2;
-        } else if (goal === 'loss') {
+        if (user.goal === 'maintain') {
+            proteinFactor = 1.4; 
+            if (realActivity > 1.4) proteinFactor = 1.6;
+        } else if (user.goal === 'muscle') {
+            proteinFactor = 2.0; 
+            if (realActivity > 1.6) proteinFactor = 2.2;
+        } else if (user.goal === 'loss') {
             proteinFactor = 2.0; // High for retention
         }
 
-        const recommendedProtein = Math.round(weight * proteinFactor);
+        const recommendedProtein = Math.round(user.weight * proteinFactor);
+        const dailyCalories = Math.round(bmr * realActivity);
 
-        // Final Outputs
-        document.getElementById('res-protein').innerText = recommendedProtein;
+        // Update calculator state with results
+        calculator.state.results = {
+            protein: recommendedProtein,
+            bmr: Math.round(bmr),
+            dailyCalories: dailyCalories,
+            activityLevel: stepText,
+            recommendations: generateRecommendations(user.goal, activityLevel)
+        };
+
+        // Enhanced Final Outputs with animations
+        animateValue('res-protein', 0, recommendedProtein, 1000);
         document.getElementById('res-steps-analysis').innerText = stepText;
+
+        // Update preview panel with final results
+        updatePreviewWithResults();
+    }
+
+    function generateRecommendations(goal, activityLevel) {
+        const recommendations = {
+            'loss': [
+                'Consume proteína en cada comida para preservar músculo',
+                'Prioriza proteínas de alta calidad como Theory Isolate',
+                'Combina con entrenamiento de fuerza'
+            ],
+            'maintain': [
+                'Mantén un consumo constante de proteína',
+                'Distribuye tu proteína en 3-4 comidas al día',
+                'Ajusta según tu nivel de actividad'
+            ],
+            'muscle': [
+                'Consume proteína dentro de 30 min post-entrenamiento',
+                'Considera 1.6-2.2g por kg de peso corporal',
+                'Asegura sueño adecuado para la recuperación'
+            ]
+        };
+        
+        return recommendations[goal] || recommendations['maintain'];
+    }
+
+    function animateValue(id, start, end, duration) {
+        const element = document.getElementById(id);
+        const range = end - start;
+        const increment = range / (duration / 16);
+        let current = start;
+        
+        const timer = setInterval(() => {
+            current += increment;
+            if ((increment > 0 && current >= end) || (increment < 0 && current <= end)) {
+                element.textContent = end;
+                clearInterval(timer);
+            } else {
+                element.textContent = Math.round(current);
+            }
+        }, 16);
+    }
+
+    function updatePreviewWithResults() {
+        const { results } = calculator.state;
+        const proteinValue = document.querySelector('.protein-value');
+        
+        if (proteinValue && results.protein) {
+            animateValue('preview-protein', parseInt(proteinValue.textContent) || 0, results.protein, 800);
+        }
     }
 
     // Scroll Reveal Intersection Observer

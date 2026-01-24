@@ -39,7 +39,7 @@
                 <li><a href="#science">Nuestra Teoría</a></li>
                 <li><a href="#recipes">Recetas</a></li>
                 <li><a href="#contact">Comprar</a></li>
-                <li><a href="#calculator" class="btn-nav">Calculadora</a></li>
+                <li><a href="#calculator" class="btn-nav">Calculadora de Proteínas</a></li>
             </ul>
             <div class="hamburger">
                 <span></span>
@@ -185,20 +185,44 @@
         <!-- Protein Calculator Section 2026 -->
         <section id="calculator" class="calculator-section reveal">
             <div class="container">
-                <div class="calculator-wrapper">
+                <div class="calculator-wrapper enhanced-layout">
                     <div class="calculator-content">
-                        <h2>Calculadoras <span class="text-highlight">Theory 2026</span></h2>
-                        <p>Herramientas avanzadas basadas en ciencia para optimizar tu rendimiento.</p>
+                        <h2>💪 Calculadora de Proteínas <span class="text-highlight">Theory 2026</span></h2>
+                        <p>Descubre tu requerimiento óptimo basado en ciencia. Personaliza tu nutrición deportiva.</p>
 
-                        <!-- Calculator Title -->
-                        <div class="calc-mode-tabs">
-                            <button class="calc-mode-btn active" data-mode="mode-protein">Proteína & IMC</button>
+                        <!-- Progress Bar System -->
+                        <div class="calc-progress-container">
+                            <div class="progress-steps">
+                                <div class="progress-step active" data-step="1">
+                                    <div class="step-circle">1</div>
+                                    <span class="step-label">Nombre</span>
+                                </div>
+                                <div class="progress-step" data-step="2">
+                                    <div class="step-circle">2</div>
+                                    <span class="step-label">Perfil</span>
+                                </div>
+                                <div class="progress-step" data-step="3">
+                                    <div class="step-circle">3</div>
+                                    <span class="step-label">Actividad</span>
+                                </div>
+                                <div class="progress-step" data-step="4">
+                                    <div class="step-circle">4</div>
+                                    <span class="step-label">Objetivo</span>
+                                </div>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 25%"></div>
+                            </div>
                         </div>
 
-                        <!-- MODE: WIZARD -->
-                        <div id="mode-protein" class="calc-panel active">
+                        <!-- Calculator Layout Grid -->
+                        <div class="calculator-layout">
+                            <!-- Main Content -->
+                            <div class="calc-main-content">
+                                <!-- MODE: WIZARD -->
+                                <div id="mode-protein" class="calc-panel active">
 
-                            <div class="wizard-container" id="calc-wizard">
+                                    <div class="wizard-container" id="calc-wizard">
 
                                 <!-- Step 1: Name -->
                                 <div class="wizard-step active" data-step="1">
@@ -349,6 +373,38 @@
 
                         </div>
 
+                                </div>
+                            </div>
+                            
+                            <!-- Real-time Preview -->
+                            <div class="calc-preview-panel">
+                                <div class="preview-header">
+                                    <h4>Tu Progreso</h4>
+                                    <div class="protein-indicator">
+                                        <span class="protein-value">--</span>
+                                        <span class="protein-unit">g proteína</span>
+                                    </div>
+                                </div>
+                                <div class="preview-content">
+                                    <div class="preview-item">
+                                        <span class="preview-label">Nombre:</span>
+                                        <span class="preview-value" id="preview-name">--</span>
+                                    </div>
+                                    <div class="preview-item">
+                                        <span class="preview-label">Progreso:</span>
+                                        <span class="preview-value" id="preview-progress">25%</span>
+                                    </div>
+                                    <div class="preview-item">
+                                        <span class="preview-label">Peso:</span>
+                                        <span class="preview-value" id="preview-weight">--</span>
+                                    </div>
+                                    <div class="preview-item">
+                                        <span class="preview-label">Objetivo:</span>
+                                        <span class="preview-value" id="preview-goal">--</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         
                     </div>
                     <button class="close-calc" aria-label="Cerrar calculadora">&times;</button>
