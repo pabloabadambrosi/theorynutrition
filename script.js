@@ -933,20 +933,18 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initialize lazy loading
     const lazyLoader = new LazyImageLoader();
 
-    // Enhanced Magnetic Buttons Interaction
+    // Remove magnetic effects to keep images static
+    // Only keep hover effects without movement
     const magneticElements = document.querySelectorAll('.btn, .btn-nav, .social-link, .nav-links a:not(.btn-nav), .whatsapp-float');
 
+    // Only add simple hover classes, no magnetic movement
     magneticElements.forEach(el => {
-        el.addEventListener('mousemove', (e) => {
-            const rect = el.getBoundingClientRect();
-            const x = e.clientX - rect.left - rect.width / 2;
-            const y = e.clientY - rect.top - rect.height / 2;
-
-            el.style.transform = `translate(${x * 0.3}px, ${y * 0.3}px)`;
+        el.addEventListener('mouseenter', () => {
+            el.classList.add('hover');
         });
 
         el.addEventListener('mouseleave', () => {
-            el.style.transform = '';
+            el.classList.remove('hover');
         });
     });
 

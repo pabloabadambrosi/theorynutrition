@@ -55,52 +55,42 @@ img {
     transition: opacity 0.6s ease;
 }
 
-/* Lazy Loading Enhancement */
+/* Lazy Loading Enhancement - Static */
 .lazy-image {
     opacity: 0;
-    transform: translateY(20px) scale(0.95);
+    transform: translateY(10px);
 }
 
 .lazy-image.loaded {
     opacity: 1;
-    transform: translateY(0) scale(1);
+    transform: translateY(0);
 }
 
-/* Product Image Zoom Enhancement */
+/* Product Images - Static */
 .product-img {
-    cursor: zoom-in;
-    transition: transform 0.3s ease;
+    cursor: default;
+    transition: opacity 0.3s ease;
 }
 
 .product-img:hover {
-    transform: scale(1.05);
+    transform: none;
+    opacity: 0.9;
 }
 
-/* Image Loading State */
+/* Image Loading State - Static */
 img:not(.loaded) {
-    background: linear-gradient(45deg, var(--color-cloud) 25%, transparent 25%, transparent 75%, var(--color-cloud) 75%, var(--color-cloud)),
-                        linear-gradient(45deg, var(--color-cloud) 25%, transparent 25%, transparent 75%, var(--color-cloud) 75%, var(--color-cloud));
-    background-size: 20px 20px;
-    background-position: 0 0, 10px 10px;
-    animation: loadingShimmer 1.5s infinite linear;
+    background: var(--color-cloud);
 }
 
-@keyframes loadingShimmer {
-    0% { background-position: 0 0, 10px 10px; }
-    100% { background-position: 20px 20px, 30px 30px; }
-}
-
-/* Background Animated Blobs - Cosmic Version */
+/* Background Animated Blobs - Static Version */
 .bg-blobs {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: -1;
     overflow: hidden;
-    pointer-events: none;
-    background: radial-gradient(circle at 50% 50%, #F0EEE9 0%, #e6e4e0 100%);
+    z-index: -1;
 }
 
 .blob {
@@ -365,7 +355,7 @@ ul {
 
     .nav-links a:hover {
         background: rgba(255, 255, 255, 0.1);
-        transform: translateX(5px);
+        transform: none;
     }
 
     .nav-links a.active {
@@ -590,35 +580,16 @@ ul {
     overflow: hidden;
 }
 
-.social-proof-badges .badge-item::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 107, 53, 0.1), transparent);
-    transition: left 0.6s ease;
-}
 
-.social-proof-badges .badge-item:hover::before {
-    left: 100%;
-}
 
 .social-proof-badges .badge-item:hover {
-    transform: translateY(-5px) scale(1.02);
-    box-shadow: 0 15px 35px rgba(31, 42, 68, 0.15);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(31, 42, 68, 0.15);
 }
 
 .social-proof-badges .badge-icon {
     font-size: 2rem;
-    animation: bounce 2s infinite;
 }
-
-.social-proof-badges .badge-item:nth-child(1) .badge-icon { animation-delay: 0s; }
-.social-proof-badges .badge-item:nth-child(2) .badge-icon { animation-delay: 0.5s; }
-.social-proof-badges .badge-item:nth-child(3) .badge-icon { animation-delay: 1s; }
-.social-proof-badges .badge-item:nth-child(4) .badge-icon { animation-delay: 1.5s; }
 
 .social-proof-badges .badge-text {
     font-weight: 600;
@@ -845,8 +816,8 @@ ul {
 }
 
 .testimonial-card:hover {
-    transform: translateY(-8px) scale(1.02);
-    box-shadow: 0 20px 40px rgba(31, 42, 68, 0.15);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(31, 42, 68, 0.15);
 }
 
 /* Calculator Modal */
