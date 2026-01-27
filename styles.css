@@ -22,7 +22,7 @@
     --transition-smooth: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     --backdrop-blur: blur(20px);
     --shadow-glow: 0 10px 30px rgba(31, 42, 68, 0.1);
-    
+
     /* Protein Calculator Theme */
     --color-protein-primary: #FF6B35;
     --color-protein-secondary: #F7931E;
@@ -162,6 +162,123 @@ ul {
     border-radius: 24px;
 }
 
+/* Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(8px);
+    z-index: 10000;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.modal.active {
+    display: flex;
+    opacity: 1;
+}
+
+.modal-content {
+    position: relative;
+    width: 95%;
+    max-width: 900px;
+    max-height: 90vh;
+    padding: 4rem;
+    overflow-y: auto;
+    transform: scale(0.9);
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.modal.active .modal-content {
+    transform: scale(1);
+}
+
+.modal-product-image img {
+    width: 100%;
+    max-width: 400px;
+    filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.3));
+}
+
+.modal-product-info h2 {
+    font-size: 3rem;
+    color: var(--color-text-main);
+    margin-bottom: 1rem;
+}
+
+.modal-desc {
+    font-size: 1.1rem;
+    color: var(--color-text-muted);
+    margin-bottom: 2rem;
+    line-height: 1.8;
+}
+
+.modal-specs {
+    margin-bottom: 2.5rem;
+}
+
+.modal-specs li {
+    font-size: 1rem;
+    color: var(--color-text-main);
+    margin-bottom: 0.8rem;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+.modal-price {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--color-accent);
+    margin-bottom: 2rem;
+}
+
+.modal-buy-btn {
+    width: 100%;
+}
+
+.close-modal {
+    position: absolute;
+    top: 2rem;
+    right: 2rem;
+    background: none;
+    border: none;
+    font-size: 3rem;
+    color: var(--color-text-main);
+    cursor: pointer;
+    line-height: 1;
+    transition: var(--transition-smooth);
+    z-index: 101;
+}
+
+.close-modal:hover {
+    color: var(--color-accent);
+    transform: rotate(90deg);
+}
+
+.quick-view-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: center;
+}
+
+@media (max-width: 768px) {
+    .quick-view-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    .modal-content {
+        padding: 2rem;
+    }
+}
+
 /* Buttons - Antigravity Style */
 .btn {
     display: inline-flex;
@@ -279,7 +396,7 @@ ul {
     .mobile-nav-overlay {
         display: none;
     }
-    
+
     .nav-links {
         position: fixed;
         top: 0;
@@ -287,10 +404,9 @@ ul {
         width: 80vw;
         max-width: 300px;
         height: 100vh;
-        background: linear-gradient(135deg, 
-            rgba(31, 42, 68, 0.98), 
-            rgba(0, 136, 204, 0.95)
-        );
+        background: linear-gradient(135deg,
+                rgba(31, 42, 68, 0.98),
+                rgba(0, 136, 204, 0.95));
         backdrop-filter: blur(20px);
         flex-direction: column;
         gap: 1rem;
@@ -313,12 +429,29 @@ ul {
         animation: slideInNav 0.6s ease forwards;
     }
 
-    .nav-links.active li:nth-child(1) { animation-delay: 0.1s; }
-    .nav-links.active li:nth-child(2) { animation-delay: 0.2s; }
-    .nav-links.active li:nth-child(3) { animation-delay: 0.3s; }
-    .nav-links.active li:nth-child(4) { animation-delay: 0.4s; }
-    .nav-links.active li:nth-child(5) { animation-delay: 0.5s; }
-    .nav-links.active li:nth-child(6) { animation-delay: 0.6s; }
+    .nav-links.active li:nth-child(1) {
+        animation-delay: 0.1s;
+    }
+
+    .nav-links.active li:nth-child(2) {
+        animation-delay: 0.2s;
+    }
+
+    .nav-links.active li:nth-child(3) {
+        animation-delay: 0.3s;
+    }
+
+    .nav-links.active li:nth-child(4) {
+        animation-delay: 0.4s;
+    }
+
+    .nav-links.active li:nth-child(5) {
+        animation-delay: 0.5s;
+    }
+
+    .nav-links.active li:nth-child(6) {
+        animation-delay: 0.6s;
+    }
 
     @keyframes slideInNav {
         to {
@@ -598,9 +731,22 @@ ul {
 }
 
 @keyframes bounce {
-    0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-    40% { transform: translateY(-10px); }
-    60% { transform: translateY(-5px); }
+
+    0%,
+    20%,
+    50%,
+    80%,
+    100% {
+        transform: translateY(0);
+    }
+
+    40% {
+        transform: translateY(-10px);
+    }
+
+    60% {
+        transform: translateY(-5px);
+    }
 }
 
 .badges-grid {
@@ -861,7 +1007,7 @@ ul {
     max-width: 1200px;
     background: linear-gradient(135deg, #FFFFFF, #F8F9FA);
     border: 1px solid rgba(255, 107, 53, 0.1);
-    box-shadow: 
+    box-shadow:
         0 50px 100px rgba(31, 42, 68, 0.2),
         0 0 120px rgba(255, 107, 53, 0.1);
     overflow: visible;
@@ -880,22 +1026,24 @@ ul {
     left: -50%;
     width: 200%;
     height: 200%;
-    background: radial-gradient(
-        circle at 30% 20%,
-        rgba(255, 107, 53, 0.05) 0%,
-        transparent 40%
-    );
+    background: radial-gradient(circle at 30% 20%,
+            rgba(255, 107, 53, 0.05) 0%,
+            transparent 40%);
     animation: floatingOrb 20s ease-in-out infinite;
     pointer-events: none;
 }
 
 @keyframes floatingOrb {
-    0%, 100% {
+
+    0%,
+    100% {
         transform: translate(0, 0) rotate(0deg);
     }
+
     33% {
         transform: translate(30px, -30px) rotate(120deg);
     }
+
     66% {
         transform: translate(-20px, 20px) rotate(240deg);
     }
@@ -1005,8 +1153,15 @@ select:focus {
 }
 
 @keyframes pulse {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.05); }
+
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.05);
+    }
 }
 
 .protein-unit {
@@ -1091,22 +1246,22 @@ select:focus {
         grid-template-columns: 1fr;
         gap: 1rem;
     }
-    
+
     .calc-preview-panel {
         position: relative;
         top: 0;
         margin-top: 2rem;
     }
-    
+
     .calculator-wrapper.enhanced-layout {
         padding: 2rem 1.5rem;
     }
-    
+
     .calc-main-content {
         min-height: 300px;
         max-height: 60vh;
     }
-    
+
     .wizard-btn-group {
         position: sticky;
         bottom: 0;
@@ -1242,8 +1397,13 @@ select:focus {
 }
 
 @keyframes shimmer {
-    0% { transform: translateX(-20px); }
-    100% { transform: translateX(20px); }
+    0% {
+        transform: translateX(-20px);
+    }
+
+    100% {
+        transform: translateX(20px);
+    }
 }
 
 /* Calculator Inputs & Tabs */
@@ -1799,8 +1959,13 @@ select:focus {
 }
 
 @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
 }
 
 /* Enhanced Notification System */
@@ -1881,7 +2046,7 @@ select:focus {
         bottom: 20px;
         transform: translateY(100px);
     }
-    
+
     .notification.active {
         bottom: 20px;
         transform: translateY(0);
@@ -2299,7 +2464,9 @@ transition-delay: 0.2s;
     .clean-form {
         padding: 2rem;
     }
-}/* Wizard Styles */
+}
+
+/* Wizard Styles */
 .wizard-container {
     padding: 1rem;
     min-height: 400px;
@@ -2329,10 +2496,12 @@ transition-delay: 0.2s;
         opacity: 0;
         transform: translateY(30px) scale(0.95);
     }
+
     50% {
         opacity: 0.7;
         transform: translateY(-5px) scale(1.02);
     }
+
     100% {
         opacity: 1;
         transform: translateY(0) scale(1);
@@ -2344,6 +2513,7 @@ transition-delay: 0.2s;
         opacity: 1;
         transform: translateY(0) scale(1);
     }
+
     100% {
         opacity: 0;
         transform: translateY(-20px) scale(0.95);
@@ -2408,8 +2578,8 @@ transition-delay: 0.2s;
 }
 
 /* Add floating label effect */
-.input-highlight:focus + .floating-label,
-.input-highlight:not(:placeholder-shown) + .floating-label {
+.input-highlight:focus+.floating-label,
+.input-highlight:not(:placeholder-shown)+.floating-label {
     transform: translateY(-25px) scale(0.8);
     color: var(--color-protein-primary);
     opacity: 1;
@@ -2558,10 +2728,12 @@ transition-delay: 0.2s;
         transform: scale(0) rotate(-180deg);
         opacity: 0;
     }
+
     50% {
         transform: scale(1.2) rotate(10deg);
         opacity: 1;
     }
+
     100% {
         transform: scale(1) rotate(0deg);
         opacity: 1;
@@ -2595,7 +2767,7 @@ transition-delay: 0.2s;
     left: 0;
     right: 0;
     bottom: 0;
-    background: 
+    background:
         linear-gradient(45deg, transparent 30%, rgba(255, 107, 53, 0.1) 50%, transparent 70%),
         linear-gradient(-45deg, transparent 30%, rgba(247, 147, 30, 0.1) 50%, transparent 70%);
     animation: loadingShimmer 2s infinite;
@@ -2605,15 +2777,17 @@ transition-delay: 0.2s;
     0% {
         transform: translateX(-100%) translateY(-100%);
     }
+
     100% {
         transform: translateX(100%) translateY(100%);
     }
 }
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 400px;
-    text-align: center;
+
+flex-direction: column;
+align-items: center;
+justify-content: center;
+height: 400px;
+text-align: center;
 }
 
 .logo-spinner {
@@ -2622,7 +2796,7 @@ transition-delay: 0.2s;
     border-radius: 50%;
     animation: ultimateSpin 3s cubic-bezier(0.16, 1, 0.3, 1) infinite;
     margin-bottom: 2rem;
-    box-shadow: 
+    box-shadow:
         0 10px 30px rgba(255, 107, 53, 0.2),
         0 0 60px rgba(255, 107, 53, 0.1);
     position: relative;
@@ -2637,55 +2811,62 @@ transition-delay: 0.2s;
     right: -5px;
     bottom: -5px;
     border-radius: 50%;
-    background: conic-gradient(
-        from 0deg,
-        transparent 0deg,
-        var(--color-protein-primary) 90deg,
-        var(--color-protein-secondary) 180deg,
-        var(--color-protein-accent) 270deg,
-        transparent 360deg
-    );
+    background: conic-gradient(from 0deg,
+            transparent 0deg,
+            var(--color-protein-primary) 90deg,
+            var(--color-protein-secondary) 180deg,
+            var(--color-protein-accent) 270deg,
+            transparent 360deg);
     animation: rotateGradient 2s linear infinite;
     z-index: -1;
     opacity: 0.6;
 }
 
 @keyframes ultimateSpin {
-    0% { 
-        transform: rotate(0deg) scale(1); 
-        box-shadow: 
+    0% {
+        transform: rotate(0deg) scale(1);
+        box-shadow:
             0 10px 30px rgba(255, 107, 53, 0.2),
             0 0 60px rgba(255, 107, 53, 0.1);
     }
-    25% { 
-        transform: rotate(90deg) scale(1.05); 
-        box-shadow: 
+
+    25% {
+        transform: rotate(90deg) scale(1.05);
+        box-shadow:
             0 15px 35px rgba(255, 107, 53, 0.3),
             0 0 80px rgba(255, 107, 53, 0.15);
     }
-    50% { 
-        transform: rotate(180deg) scale(1.1); 
-        box-shadow: 
+
+    50% {
+        transform: rotate(180deg) scale(1.1);
+        box-shadow:
             0 20px 45px rgba(255, 107, 53, 0.4),
             0 0 100px rgba(255, 107, 53, 0.2);
     }
-    75% { 
-        transform: rotate(270deg) scale(1.05); 
-        box-shadow: 
+
+    75% {
+        transform: rotate(270deg) scale(1.05);
+        box-shadow:
             0 15px 35px rgba(255, 107, 53, 0.3),
             0 0 80px rgba(255, 107, 53, 0.15);
     }
-    100% { 
-        transform: rotate(360deg) scale(1); 
-        box-shadow: 
+
+    100% {
+        transform: rotate(360deg) scale(1);
+        box-shadow:
             0 10px 30px rgba(255, 107, 53, 0.2),
             0 0 60px rgba(255, 107, 53, 0.1);
     }
 }
 
 @keyframes rotateGradient {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
 }
 
 @keyframes theorySpin {
@@ -2714,15 +2895,36 @@ transition-delay: 0.2s;
 }
 
 @keyframes textPulse {
-    0%, 100% { opacity: 0.7; }
-    50% { opacity: 1; }
+
+    0%,
+    100% {
+        opacity: 0.7;
+    }
+
+    50% {
+        opacity: 1;
+    }
 }
 
 @keyframes dots {
-    0%, 20% { content: ''; }
-    40% { content: '.'; }
-    60% { content: '..'; }
-    80%, 100% { content: '...'; }
+
+    0%,
+    20% {
+        content: '';
+    }
+
+    40% {
+        content: '.';
+    }
+
+    60% {
+        content: '..';
+    }
+
+    80%,
+    100% {
+        content: '...';
+    }
 }
 
 @keyframes pulse {
@@ -2755,10 +2957,12 @@ transition-delay: 0.2s;
         opacity: 0;
         transform: translateY(30px) scale(0.95);
     }
+
     50% {
         opacity: 0.8;
         transform: translateY(-5px) scale(1.02);
     }
+
     100% {
         opacity: 1;
         transform: translateY(0) scale(1);

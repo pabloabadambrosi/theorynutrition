@@ -176,7 +176,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Flavor Selection (handled by dynamic selection summary below)
 
     // Buy Buttons auto-select flavor and switch to contact
-    document.querySelectorAll('.buy-btn').forEach(btn => {
+    document.querySelectorAll('a.buy-btn').forEach(btn => {
         btn.addEventListener('click', (e) => {
             e.preventDefault();
             const product = btn.dataset.product.toLowerCase();
@@ -961,4 +961,94 @@ document.addEventListener('DOMContentLoaded', () => {
     document.addEventListener('mousedown', () => {
         document.body.classList.remove('keyboard-nav');
     });
+
+    // Quick View Modal Logic
+    const quickViewModal = document.getElementById('quick-view-modal');
+    const modalBodyContent = document.getElementById('modal-body-content');
+    const closeModalBtn = document.querySelector('.close-modal');
+
+    const productDetails = {
+        'Vainilla Natural': {
+            img: 'product_vanilla.png',
+            desc: 'Nuestra proteína estrella. Aislado de soya de la más alta pureza con un suave toque de vainilla natural. Perfecta para batidos, pancakes y repostería saludable.',
+            specs: ['27g Proteína', '0g Azúcar', 'Sin Gluten', '100% Vegano']
+        },
+        'Pura (Sin Sabor)': {
+            img: 'product_unflavored.png',
+            desc: 'Para los puristas. 100% aislado de proteína de soya sin aditivos ni sabores. Su versatilidad la hace ideal para mezclar con frutas, en sopas o cualquier preparación culinaria.',
+            specs: ['27g Proteína', 'Ingrediente único', 'Sabor Neutro', 'Máxima Pureza']
+        }
+    };
+
+    document.querySelectorAll('.quick-view-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const productName = btn.dataset.product;
+            const details = productDetails[productName];
+
+            if (details) {
+                modalBodyContent.innerHTML = `
+                    <div class="quick-view-grid">
+                        <div class="modal-product-image">
+                            <img src="${details.img}" alt="${productName}">
+                        </div>
+                        <div class="modal-product-info">
+                            <h2>${productName}</h2>
+                            <p class="modal-desc">${details.desc}</p>
+                            <ul class="modal-specs">
+                                ${details.specs.map(spec => `<li>✅ ${spec}</li>`).join('')}
+                            </ul>
+                            <div class="modal-price">$25.00</div>
+                            <button class="btn btn-navy modal-buy-btn" data-product="${productName}">Pedir Ahora</button>
+                        </div>
+                    </div>
+                `;
+
+                quickViewModal.style.display = 'flex';
+                setTimeout(() => quickViewModal.classList.add('active'), 10);
+                document.body.style.overflow = 'hidden';
+
+                // Add event listener to the new button inside modal
+                modalBodyContent.querySelector('.modal-buy-btn').addEventListener('click', () => {
+                    closeModalBtn.click();
+                    const val = productName.includes('Vainilla') ? 'vainilla' : 'sin-sabor';
+                    switchView('contact');
+                    setTimeout(() => {
+                        const option = document.querySelector(`.flavor-option[data-value="${val}"]`);
+                        if (option) option.click();
+                    }, 100);
+                });
+            }
+        });
+    });
+
+    if (closeModalBtn) {
+        closeModalBtn.addEventListener('click', () => {
+            quickViewModal.classList.remove('active');
+            setTimeout(() => {
+                quickViewModal.style.display = 'none';
+                document.body.style.overflow = '';
+            }, 400);
+        });
+
+        quickViewModal.addEventListener('click', (e) => {
+            if (e.target === quickViewModal) closeModalBtn.click();
+        });
+    }
+
+    // Promo Code Live Validation Simulation
+    const promoInput = document.getElementById('promo-code');
+    if (promoInput) {
+        promoInput.addEventListener('input', (e) => {
+            const code = e.target.value.toUpperCase();
+            if (code.length >= 4) {
+                // Just a simulation - normally you'd verify with a database
+                if (code === 'THEORY2026' || code === 'VEGANFIT' || code === 'PABLO') {
+                    ErrorHandler.show('¡Código válido! Se aplicará en tu pedido.', 'success', 2000);
+                    promoInput.style.borderColor = 'var(--color-protein-success)';
+                }
+            } else {
+                promoInput.style.borderColor = '';
+            }
+        });
+    }
 });
