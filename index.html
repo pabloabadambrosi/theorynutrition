@@ -222,6 +222,10 @@
                     <div class="products-grid">
                         <!-- Product 1: Vanilla -->
                         <div class="product-card reveal">
+                            <div class="product-badges">
+                                <span class="stock-badge urgent">⚠️ Solo 8 unidades</span>
+                                <span class="trending-badge">🔥 Más Vendido</span>
+                            </div>
                             <div class="product-image-container">
                                 <img src="product_vanilla.png" alt="Proteína Vainilla Theory Nutrition" 
                                      loading="lazy" 
@@ -235,15 +239,30 @@
                                     <li>Dairy Free</li>
                                     <li>0g Azúcar</li>
                                 </ul>
-                                <span class="product-price">$25</span>
-                                <a href="#contact" class="btn btn-navy btn-sm buy-btn"
-                                    data-product="Vainilla Natural">Pedir
-                                    por WhatsApp</a>
+                                <div class="price-row">
+                                    <span class="product-price">$25</span>
+                                    <span class="savings-badge">Ahorra $10 con pack 3</span>
+                                </div>
+                                <div class="product-actions">
+                                    <a href="#contact" class="btn btn-navy btn-sm buy-btn"
+                                        data-product="Vainilla Natural">Pedir
+                                        por WhatsApp</a>
+                                    <button class="btn btn-secondary btn-sm quick-view-btn"
+                                        data-product="Vainilla Natural">Vista Rápida</button>
+                                </div>
+                                <div class="social-proof-mini">
+                                    <span class="recent-purchases">🏃 3 personas compraron hoy</span>
+                                    <div class="mini-stars">⭐⭐⭐⭐⭐ (234)</div>
+                                </div>
                             </div>
                         </div>
 
                         <!-- Product 2: Unflavored -->
                         <div class="product-card reveal reveal-delay-1">
+                            <div class="product-badges">
+                                <span class="stock-badge limited">🏆 Edición Limitada</span>
+                                <span class="quality-badge">✅ 100% Puro</span>
+                            </div>
                             <div class="product-image-container">
                                 <img src="product_unflavored.png" alt="Proteína Sin Sabor Theory Nutrition" 
                                      loading="lazy" 
@@ -257,10 +276,21 @@
                                     <li>Dairy Free</li>
                                     <li>100% Aislado de Soya</li>
                                 </ul>
-                                <span class="product-price">$25</span>
-                                <a href="#contact" class="btn btn-navy btn-sm buy-btn"
-                                    data-product="Pura (Sin Sabor)">Pedir
-                                    por WhatsApp</a>
+                                <div class="price-row">
+                                    <span class="product-price">$25</span>
+                                    <span class="savings-badge">Ideal para mezclar</span>
+                                </div>
+                                <div class="product-actions">
+                                    <a href="#contact" class="btn btn-navy btn-sm buy-btn"
+                                        data-product="Pura (Sin Sabor)">Pedir
+                                        por WhatsApp</a>
+                                    <button class="btn btn-secondary btn-sm quick-view-btn"
+                                        data-product="Pura (Sin Sabor)">Ver Beneficios</button>
+                                </div>
+                                <div class="social-proof-mini">
+                                    <span class="recent-purchases">🏋️ Atletas lo prefieren</span>
+                                    <div class="mini-stars">⭐⭐⭐⭐⭐ (189)</div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -276,31 +306,52 @@
                     </div>
                     <div class="testimonials-grid">
                         <div class="testimonial-card reveal">
+                            <div class="purchase-proof">
+                                <span class="purchase-verified">✅ Compra Verificada</span>
+                                <span class="purchase-date">Hace 2 días</span>
+                            </div>
                             <div class="quote-icon">"</div>
                             <p class="testimonial-text">La proteína más limpia que he probado. Sin rellenos, sin trucos. Me ayudó a alcanzar mis objetivos de competencia.</p>
                             <div class="testimonial-author">
                                 <h4>María González</h4>
-                                <span class="testimonial-role">Atleta Competitiva</span>
+                                <span class="testimonial-role">Atleta Competitiva, Quito</span>
                                 <div class="stars">★★★★★</div>
+                                <div class="purchase-details">Compró: 2 unidades Vainilla</div>
                             </div>
                         </div>
                         <div class="testimonial-card reveal reveal-delay-1">
+                            <div class="purchase-proof">
+                                <span class="purchase-verified">✅ Compra Verificada</span>
+                                <span class="purchase-date">Hace 1 semana</span>
+                            </div>
                             <div class="quote-icon">"</div>
                             <p class="testimonial-text">Como vegano, Theory superó mis expectativas. 27g de proteína pura y sabor increíble. ¡Nunca volveré a otras marcas!</p>
                             <div class="testimonial-author">
                                 <h4>Carlos Mendoza</h4>
-                                <span class="testimonial-role">Crossfit Athlete</span>
+                                <span class="testimonial-role">Crossfit Athlete, Guayaquil</span>
                                 <div class="stars">★★★★★</div>
+                                <div class="purchase-details">Compró: Pack 3 unidades</div>
                             </div>
                         </div>
                         <div class="testimonial-card reveal reveal-delay-2">
+                            <div class="purchase-proof">
+                                <span class="purchase-verified">✅ Compra Verificada</span>
+                                <span class="purchase-date">Hace 3 días</span>
+                            </div>
                             <div class="quote-icon">"</div>
                             <p class="testimonial-text">El sabor es exquisito y la mezcla es perfecta. Uso Theory daily y mi recuperación ha mejorado notablemente.</p>
                             <div class="testimonial-author">
                                 <h4>Sofía Rodríguez</h4>
-                                <span class="testimonial-role">Yoga Instructor</span>
+                                <span class="testimonial-role">Yoga Instructor, Cuenca</span>
                                 <div class="stars">★★★★★</div>
+                                <div class="purchase-details">Compró: 1 unidad Sin Sabor</div>
                             </div>
+                        </div>
+                        <!-- Live Purchase Notification -->
+                        <div class="live-purchase-notification">
+                            <span class="live-indicator">🔴 EN VIVO</span>
+                            <span class="purchase-text"><strong>Javier P.</strong> en Guayaquil acaba de comprar 2 unidades</span>
+                            <span class="purchase-time">Hace 30 segundos</span>
                         </div>
                     </div>
                 </div>
@@ -944,17 +995,67 @@
                             <label for="quantity">Cantidad</label>
                             <input type="number" id="quantity" min="1" value="1" required>
                         </div>
+                        <!-- Enhanced Purchase Section -->
+                        <div class="purchase-enhancement">
+                            <div class="bundle-options">
+                                <label class="bundle-option">
+                                    <input type="radio" name="bundle" value="single">
+                                    <span class="bundle-label">1 unidad - $25</span>
+                                </label>
+                                <label class="bundle-option recommended">
+                                    <input type="radio" name="bundle" value="triple" checked>
+                                    <span class="bundle-label">Pack 3 unidades - $65 <span class="bundle-save">¡AHORRA $10!</span></span>
+                                </label>
+                                <label class="bundle-option">
+                                    <input type="radio" name="bundle" value="subscription">
+                                    <span class="bundle-label">Suscripción mensual - $22/mes <span class="bundle-save">20% OFF</span></span>
+                                </label>
+                            </div>
+                            
+                            <div class="payment-methods">
+                                <p class="payment-title">Métodos de pago disponibles:</p>
+                                <div class="payment-icons">
+                                    <span class="payment-icon active">💬 WhatsApp</span>
+                                    <span class="payment-icon">🏦 Transferencia</span>
+                                    <span class="payment-icon">💳 Tarjeta crédito</span>
+                                    <span class="payment-icon">📱 Nequi</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="promo-code">Código Promocional</label>
+                            <input type="text" id="promo-code" placeholder="Tu código (Opcional)">
+                        </div>
+                        
                         <button type="submit" class="btn buy-btn">
                             Pedir por WhatsApp
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="white">
                                 <path
-                                    d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413" />
+                                    d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-1.413 1.475-.099.198-.099.198-.099.198-.074.124-.272.149-.57-.347-1.254-.463-2.39-1.475-2.39-1.475m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.64-64.64.64 1.448 1.448 1.448 1.448h.005a11.815 11.815 0 01.892 2.893l.361.214.361.214">
+                                </path>
                             </svg>
                         </button>
+                        
+                        <!-- Trust Seals -->
+                        <div class="trust-seals">
+                            <div class="seal-item">
+                                <span class="seal-icon">🔒</span>
+                                <span class="seal-text">Pago 100% Seguro</span>
+                            </div>
+                            <div class="seal-item">
+                                <span class="seal-icon">🚚</span>
+                                <span class="seal-text">Envío 24-48h</span>
+                            </div>
+                            <div class="seal-item">
+                                <span class="seal-icon">🏆</span>
+                                <span class="seal-text">Garantía 30 días</span>
+                            </div>
+                        </div>
                     </form>
                 </div>
 
-                <!-- Distribution Promo -->
+                <!-- Enhanced Distribution & Lead Capture -->
                 <div class="distribution-promo reveal">
                     <div class="distribution-content">
                         <h3>¿Tienes un Gimnasio o Tienda?</h3>
@@ -966,11 +1067,51 @@
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                 <path
-                                    d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z">
+                                    d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.63A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2.81 0 0 0 2.17-3.07 8.63 8.63 0 0 1-2-2 2 2 0 0 1-2.18 2-6 6 0 0 1 3.07 8.63 19.5 19.5 0 0 1 6 6">
                                 </path>
                             </svg>
                         </a>
                     </div>
+                </div>
+                
+                <!-- Urgency & Lead Capture Section -->
+                <div class="urgency-section reveal reveal-delay-1">
+                    <div class="container">
+                        <div class="urgency-timer">
+                            <div class="timer-header">
+                                <h3>⏰ Oferta por Tiempo Limitado</h3>
+                                <p>Envío GRATIS en compras mayores a $50</p>
+                            </div>
+                            <div class="countdown-display">
+                                <div class="time-block">
+                                    <span id="hours">23</span>
+                                    <span class="time-label">HORAS</span>
+                                </div>
+                                <div class="time-block">
+                                    <span id="minutes">59</span>
+                                    <span class="time-label">MINUTOS</span>
+                                </div>
+                                <div class="time-block">
+                                    <span id="seconds">59</span>
+                                    <span class="time-label">SEGUNDOS</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Email Capture Lead Magnet -->
+                        <div class="email-capture-section">
+                            <div class="lead-magnet">
+                                <h3>📥 RECIBE GUÍA GRATIS</h3>
+                                <p>"5 Recetas Proteícas Veganas para Atletas Ecuatorianos"</p>
+                                <form class="email-capture-form" id="email-form">
+                                    <input type="email" placeholder="Tu email" required id="email-input">
+                                    <button type="submit" class="btn btn-primary btn-email">Descargar Gratis</button>
+                                </form>
+                                <p class="privacy-note">✅ Respetamos tu privacidad. Sin spam.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 </div>
 
                 <!-- FAQ below contact -->

@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
         hamburger.classList.toggle('active');
         navLinks.classList.toggle('active');
         mobileOverlay.classList.toggle('active');
-        
+
         // Prevent body scroll when menu is open
         if (navLinks.classList.contains('active')) {
             document.body.style.overflow = 'hidden';
@@ -202,7 +202,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    
+
 
     // Enhanced Calculator State Management
     class CalculatorController {
@@ -238,21 +238,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
         updateProgress(step) {
             this.state.ui.currentStep = step;
-            
+
             // Update progress bar
             const progressFill = document.querySelector('.progress-fill');
             const progressSteps = document.querySelectorAll('.progress-step');
             const progressPercentage = (step / 4) * 100;
-            
+
             if (progressFill) {
                 progressFill.style.width = `${progressPercentage}%`;
             }
-            
+
             // Update step indicators
             progressSteps.forEach((stepEl, index) => {
                 const stepNum = index + 1;
                 stepEl.classList.remove('active', 'completed');
-                
+
                 if (stepNum < step) {
                     stepEl.classList.add('completed');
                 } else if (stepNum === step) {
@@ -300,7 +300,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // Update estimated protein
             if (proteinValue && this.state.user.weight > 0 && this.state.user.goal) {
                 const estimatedProtein = this.calculateEstimatedProtein(
-                    this.state.user.weight, 
+                    this.state.user.weight,
                     this.state.user.goal
                 );
                 proteinValue.textContent = estimatedProtein;
@@ -390,9 +390,9 @@ document.addEventListener('DOMContentLoaded', () => {
             // Enhanced Validation
             if (currentStep === 1) {
                 const name = document.getElementById('wiz-name').value;
-                if (!name.trim()) { 
-                    showValidationError('Por favor ingresa tu nombre'); 
-                    return; 
+                if (!name.trim()) {
+                    showValidationError('Por favor ingresa tu nombre');
+                    return;
                 }
                 document.getElementById('res-name').innerText = name;
                 calculator.updateUserData('name', name);
@@ -400,9 +400,9 @@ document.addEventListener('DOMContentLoaded', () => {
             if (currentStep === 2) {
                 const gender = document.getElementById('wiz-gender').value;
                 const age = document.getElementById('wiz-age').value;
-                if (!gender || !age) { 
-                    showValidationError('Completa los campos requeridos'); 
-                    return; 
+                if (!gender || !age) {
+                    showValidationError('Completa los campos requeridos');
+                    return;
                 }
                 calculator.updateUserData('gender', gender);
                 calculator.updateUserData('age', parseInt(age));
@@ -410,9 +410,9 @@ document.addEventListener('DOMContentLoaded', () => {
             if (currentStep === 3) {
                 const steps = document.getElementById('wiz-steps').value;
                 const activity = document.getElementById('wiz-activity').value;
-                if (!steps || !activity) { 
-                    showValidationError('Completa tu nivel de actividad'); 
-                    return; 
+                if (!steps || !activity) {
+                    showValidationError('Completa tu nivel de actividad');
+                    return;
                 }
                 calculator.updateUserData('steps', parseInt(steps));
                 calculator.updateUserData('activity', parseFloat(activity));
@@ -421,13 +421,13 @@ document.addEventListener('DOMContentLoaded', () => {
             if (currentStep < totalSteps) {
                 // Add exit animation to current step
                 stepEl.classList.add('step-exit');
-                
+
                 setTimeout(() => {
                     stepEl.classList.remove('active', 'step-exit');
                     currentStep++;
                     const nextEl = document.querySelector(`.wizard-step[data-step="${currentStep}"]`);
                     nextEl.classList.add('active');
-                    
+
                     // Update progress using calculator controller
                     calculator.updateProgress(currentStep);
                 }, 400); // Wait for exit animation to complete
@@ -438,22 +438,22 @@ document.addEventListener('DOMContentLoaded', () => {
     // Prev Buttons - Enhanced with Progress System
     document.querySelectorAll('.prev-step').forEach(btn => {
         btn.addEventListener('click', () => {
-        if (currentStep > 1) {
-            const currentStepEl = document.querySelector(`.wizard-step[data-step="${currentStep}"]`);
-            
-            // Add exit animation to current step
-            currentStepEl.classList.add('step-exit');
-            
-            setTimeout(() => {
-                currentStepEl.classList.remove('active', 'step-exit');
-                currentStep--;
-                const prevEl = document.querySelector(`.wizard-step[data-step="${currentStep}"]`);
-                prevEl.classList.add('active');
-                
-                // Update progress using calculator controller
-                calculator.updateProgress(currentStep);
-            }, 400); // Wait for exit animation to complete
-        }
+            if (currentStep > 1) {
+                const currentStepEl = document.querySelector(`.wizard-step[data-step="${currentStep}"]`);
+
+                // Add exit animation to current step
+                currentStepEl.classList.add('step-exit');
+
+                setTimeout(() => {
+                    currentStepEl.classList.remove('active', 'step-exit');
+                    currentStep--;
+                    const prevEl = document.querySelector(`.wizard-step[data-step="${currentStep}"]`);
+                    prevEl.classList.add('active');
+
+                    // Update progress using calculator controller
+                    calculator.updateProgress(currentStep);
+                }, 400); // Wait for exit animation to complete
+            }
         });
     });
 
@@ -475,9 +475,9 @@ document.addEventListener('DOMContentLoaded', () => {
             z-index: 10000;
             animation: slideInRight 0.3s ease;
         `;
-        
+
         document.body.appendChild(errorDiv);
-        
+
         setTimeout(() => {
             errorDiv.style.animation = 'slideOutRight 0.3s ease';
             setTimeout(() => errorDiv.remove(), 300);
@@ -503,23 +503,23 @@ document.addEventListener('DOMContentLoaded', () => {
         card.addEventListener('click', () => {
             const group = card.dataset.group;
             const value = card.dataset.value;
-            
+
             // Enhanced visual feedback
             card.style.transform = 'scale(0.95)';
             setTimeout(() => {
                 card.style.transform = '';
             }, 150);
-            
+
             // Deselect siblings with animation
             document.querySelectorAll(`.step-card-option[data-group="${group}"]`).forEach(c => {
                 if (c !== card) {
                     c.classList.remove('selected');
                 }
             });
-            
+
             // Select this card with animation
             card.classList.add('selected');
-            
+
             // Update hidden input and calculator state
             if (group === 'gender') {
                 document.getElementById('wiz-gender').value = value;
@@ -539,7 +539,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const goal = document.getElementById('wiz-goal').value;
 
         if (!weight || !height || !goal) {
-            showValidationError('Por favor completa todos los datos'); 
+            showValidationError('Por favor completa todos los datos');
             return;
         }
 
@@ -639,30 +639,30 @@ document.addEventListener('DOMContentLoaded', () => {
         let stepText = "Sedentario";
         let activityLevel = 1;
 
-        if (user.steps > 12000) { 
-            realActivity = Math.max(realActivity, 1.725); 
-            stepText = "Muy Activo"; 
+        if (user.steps > 12000) {
+            realActivity = Math.max(realActivity, 1.725);
+            stepText = "Muy Activo";
             activityLevel = 5;
-        } else if (user.steps > 10000) { 
-            realActivity = Math.max(realActivity, 1.55); 
-            stepText = "Activo"; 
+        } else if (user.steps > 10000) {
+            realActivity = Math.max(realActivity, 1.55);
+            stepText = "Activo";
             activityLevel = 4;
-        } else if (user.steps > 7000) { 
-            realActivity = Math.max(realActivity, 1.375); 
-            stepText = "Moderado"; 
+        } else if (user.steps > 7000) {
+            realActivity = Math.max(realActivity, 1.375);
+            stepText = "Moderado";
             activityLevel = 3;
-        } else if (user.steps > 4000) { 
-            stepText = "Ligero"; 
+        } else if (user.steps > 4000) {
+            stepText = "Ligero";
             activityLevel = 2;
         }
 
         // Enhanced Protein Factor with scientific backing
         let proteinFactor = 1.6;
         if (user.goal === 'maintain') {
-            proteinFactor = 1.4; 
+            proteinFactor = 1.4;
             if (realActivity > 1.4) proteinFactor = 1.6;
         } else if (user.goal === 'muscle') {
-            proteinFactor = 2.0; 
+            proteinFactor = 2.0;
             if (realActivity > 1.6) proteinFactor = 2.2;
         } else if (user.goal === 'loss') {
             proteinFactor = 2.0; // High for retention
@@ -706,7 +706,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 'Asegura sueño adecuado para la recuperación'
             ]
         };
-        
+
         return recommendations[goal] || recommendations['maintain'];
     }
 
@@ -715,7 +715,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const range = end - start;
         const increment = range / (duration / 16);
         let current = start;
-        
+
         const timer = setInterval(() => {
             current += increment;
             if ((increment > 0 && current >= end) || (increment < 0 && current <= end)) {
@@ -730,7 +730,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function updatePreviewWithResults() {
         const { results } = calculator.state;
         const proteinValue = document.querySelector('.protein-value');
-        
+
         if (proteinValue && results.protein) {
             animateValue('preview-protein', parseInt(proteinValue.textContent) || 0, results.protein, 800);
         }
@@ -794,26 +794,26 @@ document.addEventListener('DOMContentLoaded', () => {
                     <button class="notification-close">&times;</button>
                 </div>
             `;
-            
+
             document.body.appendChild(notification);
-            
+
             // Animate in
             setTimeout(() => notification.classList.add('active'), 10);
-            
+
             // Auto remove
             setTimeout(() => this.remove(notification), duration);
-            
+
             // Manual close
             notification.querySelector('.notification-close').addEventListener('click', () => {
                 this.remove(notification);
             });
         }
-        
+
         static remove(notification) {
             notification.classList.remove('active');
             setTimeout(() => notification.remove(), 300);
         }
-        
+
         static async handleAsync(promise, errorMessage = 'Ocurrió un error inesperado') {
             try {
                 return await promise;
@@ -830,43 +830,45 @@ document.addEventListener('DOMContentLoaded', () => {
     if (buyForm) {
         buyForm.addEventListener('submit', async function (e) {
             e.preventDefault();
-            
+
             // Add loading state
             const submitBtn = this.querySelector('button[type="submit"]');
             const originalText = submitBtn.innerHTML;
             submitBtn.classList.add('form-loading');
             submitBtn.disabled = true;
-            
+
             try {
                 const name = document.getElementById('name').value;
                 const flavor = flavorInput.value;
                 const quantity = document.getElementById('quantity').value;
+                const promoCode = document.getElementById('promo-code').value;
 
                 // Enhanced validation
                 if (!name.trim()) {
                     throw new Error('Por favor ingresa tu nombre');
                 }
-                
+
                 if (!flavor) {
                     throw new Error('Por favor selecciona un sabor');
                 }
-                
+
                 if (!quantity || quantity < 1) {
                     throw new Error('Por favor ingresa una cantidad válida');
                 }
 
                 const phone = '593987706360';
-                const message = `Hola Theory! Mi nombre es ${name}. Me gustaría pedir ${quantity} unidad(es) de Theory Gold Isolate sabor ${flavor}.`;
+                let promoText = promoCode.trim() ? ` Código promocional: ${promoCode}.` : '';
+                const message = `Hola Theory! Mi nombre es ${name}. Me gustaría pedir ${quantity} unidad(es) de Theory Gold Isolate sabor ${flavor}.${promoText}`;
                 const whatsappUrl = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
-                
+
                 // Simulate async operation
                 await new Promise(resolve => setTimeout(resolve, 500));
-                
+
                 window.open(whatsappUrl, '_blank');
-                
+
                 // Show success message
                 ErrorHandler.show('¡Pedido redirigido a WhatsApp correctamente!', 'success', 3000);
-                
+
             } catch (error) {
                 ErrorHandler.show(error.message || 'Ocurrió un error al procesar tu pedido', 'error');
             } finally {
@@ -910,7 +912,7 @@ document.addEventListener('DOMContentLoaded', () => {
         loadImage(img) {
             // Add loading effect immediately
             img.style.opacity = '0';
-            
+
             // Create new image to preload
             const tempImg = new Image();
             tempImg.onload = () => {
@@ -920,12 +922,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 };
                 img.src = tempImg.src;
             };
-            
+
             tempImg.onerror = () => {
                 img.style.opacity = '1';
                 img.classList.add('error');
             };
-            
+
             tempImg.src = img.src;
         }
     }

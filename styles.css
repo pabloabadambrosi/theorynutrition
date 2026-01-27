@@ -2211,6 +2211,28 @@ transition-delay: 0.2s;
     box-shadow: 0 0 0 4px rgba(31, 42, 68, 0.1);
 }
 
+#promo-code {
+    background: rgba(0, 136, 204, 0.05);
+    border: 1px dashed var(--color-accent);
+    color: var(--color-text-main);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+#promo-code::placeholder {
+    text-transform: none;
+    letter-spacing: normal;
+    font-weight: 400;
+    opacity: 0.6;
+}
+
+#promo-code:focus {
+    background: white;
+    border-style: solid;
+    border-color: var(--color-accent);
+}
+
 .image-select-group {
     margin-bottom: 2rem;
 }
